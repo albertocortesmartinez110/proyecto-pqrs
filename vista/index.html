@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tickets</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+    <script src="../js/jquery-3.5.1.js"></script>
+    <script>
+        $(document).ready(function (){
+
+            $('#imagen_login img').hide(0);
+            $("#password").focus(function (){
+
+              $('#imagen_login img').attr('src','../imagenes/espia.gif');
+              $('#imagen_login img').show(300);
+            });
+
+            $("#password").blur(function (){
+
+                $('#imagen_login img').hide(300);
+            });
+        })
+    </script>
+</head>
+<body>
+<section class="login">
+    <p>Bienvenido</p>
+    <div class="row">
+     <div class="col imagen_login" id="imagen_login"><img ></div>
+    </div>
+    <section class="login_formulario">
+    <form action="" method="post">
+    <div class="row">
+        <div class="col"><input type="text" placeholder="Ingrese su identificacion" required></div>
+    </div>
+    <div class="row">
+        <div class="col"><input type="password" placeholder="Ingrese la contraseña" id="password" required></div>
+    </div>
+    <div class="row">
+         <div class="col"><input type="submit" value="Ingresar" class="enviar"></div>
+    </div>
+    </form>
+    </section>
+    </section>
+</body>
+</html>
