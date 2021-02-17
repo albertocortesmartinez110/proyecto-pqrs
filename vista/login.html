@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimun-scale=1.0">
     <title>tickets</title>
     <link rel="stylesheet" href="../css/estilos.css">
     <script src="../js/jquery-3.5.1.js"></script>
@@ -11,13 +12,13 @@
             $('#imagen_login img').hide(0);
             $("#password").focus(function (){
 
-              $('#imagen_login img').attr('src','../imagenes/espia.gif');
+              $('#imagen_login img').stop().attr('src','../imagenes/espia.gif');
               $('#imagen_login img').show(300);
             });
 
             $("#password").blur(function (){
 
-                $('#imagen_login img').hide(300);
+                $('#imagen_login img').stop().hide(300);
             });
         })
     </script>
