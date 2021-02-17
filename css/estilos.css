@@ -1,8 +1,12 @@
+/* css body        */
 body {
     margin: 0;
     padding: 0;
 }
+/* fin css body/
 
+
+/*          css  login   */
 .login {
     width: 350px;
     height: 500px;
@@ -70,7 +74,13 @@ input:focus {
 .enviar:focus {
     background-color: #4078c8;
 }
+/*  fin css login*/
 
+
+
+
+
+/*         css sidebar  */
 .sidebar {
     float: left;
     position: absolute;
@@ -134,7 +144,12 @@ input:focus {
 #menu {
     border-left: none;
 }
+/* css sidebar  */
 
+
+
+
+/*      css formulario usuario  */
 .formulario_usuario {
     width: 50%;
     background-color: white;
@@ -171,3 +186,61 @@ input[type="number"] {
 .formulario_usuario input:focus {
     background-color: #e7fcfc;
 }
+
+/* fin css formulario usuario */
+
+
+
+/*      css formulario ticket  */
+.formulario_ticket {
+    width: 90%;
+    background-color: white;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    border: #4078c8 0.5px solid;
+    border-radius: 10px;
+    box-shadow: 3px 3px 2px 2px #d8ffff;
+}
+
+.formulario_ticket input {
+    margin: 5px;
+    width: 280px;
+    height: 30px;
+    border: #4078c8 0.5px solid;
+    border-radius: 5px;
+    padding-left: 4px;
+}
+
+.formulario_ticket p {
+    margin: 5px;
+    color: #484646;
+}
+
+.formulario_ticket input:focus {
+    background-color: #e7fcfc;
+}
+.datos_usuario{
+    border-bottom: #4078c8 0.5px solid;
+    padding-bottom: 10px;
+}.datos_ticket{
+    margin-top: 10px;
+ }
+.observacion{
+    width: 80%;
+    resize: none;
+    height: 120px;
+    border: #4078c8 0.5px solid;
+    border-radius: 5px;
+    padding-left: 4px;
+    color: #484646;
+    font-size: 16px;
+    padding: 3px;
+}.observacion:focus{
+     outline: none;
+     outline-width: 0;
+ }
+/* fin css formulario ticket */
