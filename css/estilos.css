@@ -244,3 +244,32 @@ input[type="number"] {
      outline-width: 0;
  }
 /* fin css formulario ticket */
+
+
+/*   css formulario modificar ticket*/
+
+.datos_ticket_1{
+    border-bottom: #4078c8 0.5px solid;
+    padding-bottom: 10px;
+}
+.datos_ticket_2{
+    margin-top: 10px;
+    border-bottom: #4078c8 0.5px solid;
+    padding-bottom: 8px;
+}.datos_ticket_2 input{
+   width: 90%;
+ }.datos_ticket_2 p{
+    margin: 0;
+    margin-left: 16px;
+    margin-top: 5px;
+    padding: 0;
+    width: 80%;
+   }.datos_ticket_2 .col{
+    margin: 0;
+    margin-right: 20px;
+    padding: 0;
+    }
+    #observacionp{
+        width: 100%;
+    }
+/*   fin css formulario modificar ticket*/

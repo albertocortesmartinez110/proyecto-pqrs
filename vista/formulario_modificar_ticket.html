@@ -6,13 +6,19 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <script src="../js/jquery-3.5.1.js"></script>
-    <title>formulario crear ticket</title>
+    <title>Modificar tiket</title>
 </head>
 <body>
 <section class="formulario_ticket">
 
     <form method="post" action="">
-        <section class="datos_usuario">
+        <section class="datos_ticket_1">
+            <div class="row">
+                <div class="col"><p>Tipo</p></div>
+                <div class="col"><input type="number" name="id_usuario" placeholder="seleccione tipo" required></div>
+                <div class="col"><p>Numero</p></div>
+                <div class="col"><input type="text" name="nombres_usuario" required ></div>
+            </div>
             <div class="row">
                 <div class="col"><p>Id usuario</p></div>
                 <div class="col"><input type="number" name="id_usuario" placeholder="ingrese id del usuario" required></div>
@@ -33,13 +39,32 @@
                 <div class="col"><input type="text" name="apellidos_usuario" required disabled></div>
             </div>
         </section>
+        <section class="datos_ticket_2">
+            <div class="row">
+                <div class="col"><p>Creado por</p></div>
+                <div class="col"><input type="text" name="ciudad" placeholder="ingrese tipo" required></div>
+                <div class="col"><p>Asignado a</p></div>
+                <div class="col"><input type="text" name="ciudad" placeholder="ingrese agente" required></div>
+                <div class="col"><p>Fecha</p></div>
+                <div class="col"><input type="text" name="ciudad" placeholder="ingrese agente" required></div>
+                <div class="col"><p>Hora</p></div>
+                <div class="col"><input type="text" name="ciudad" placeholder="ingrese agente" required></div>
+                <div class="col"><p>Estado</p></div>
+                <div class="col"><input type="text" name="ciudad" placeholder="ingrese agente" required></div>
+            </div>
+            <div class="row">
+                <div class="col"><p id="observacionp">Observacion</p></div>
+            </div>
+            <div class="row">
+                <div class="col"> <textarea type="number" name="telefono" class="observacion" placeholder="ingrese observacion" required></textarea></div>
+            </div>
+
+        </section>
         <section class="datos_ticket">
-        <div class="row">
-            <div class="col"><p>Tipo</p></div>
-            <div class="col"><input type="text" name="ciudad" placeholder="ingrese tipo" required></div>
-            <div class="col"><p>Asignar a</p></div>
-            <div class="col"><input type="text" name="ciudad" placeholder="ingrese agente" required></div>
-        </div>
+            <div class="row">
+                <div class="col"><p>¿Reasignar a?</p></div>
+                <div class="col"><input type="text" name="ciudad" placeholder="Opcional"></div>
+            </div>
             <div class="row">
                 <div class="col"><p>Observacion</p></div>
             </div>
@@ -54,6 +79,5 @@
     </form>
 
 </section>
-
 </body>
 </html>
