@@ -17,25 +17,41 @@
                 },500,'easeInSine'); ///termina efecto in
             },function (){
                 $(this).stop().animate({
-                    left: '-200px'
-                },1500,'easeOutBounce');///termina efecto out
+                    left: '-203px'
+                },800,'easeOutBounce');///termina efecto out
                 });
         });
     </script>
     <title>vista_administrador</title>
 </head>
 <body>
+<?php
+session_start();
+?>
 <section class="sidebar" id="sidebar">
         <ul>
         <li id="menu"><h3>Menu </h3></li>
-        <li id="nam_user_li"> <a>Usuario</a></li>
-        <li id="img_user_li"><a>Imagen del usuario</a></li>
-        <li><a>Crear ticket</a></li>
-        <li><a>Crear usuario</a></li>
-        <li><a>Consultar ticket</a></li>
+        <li id="nam_user_li"> <a><?php echo $_SESSION['Name_user']?></a></li>
+        <li id="img_user_li"><img src="/curso_php/Proyecto_tickets_final/imagenes/<?php echo $_SESSION['Img_user'] ?>"></img></li>
+        <li><a href="?accion=crear_ticket">Crear ticket</a></li>
+        <li><a href="?accion=crear_usuario">Crear usuario</a></li>
+        <li><a href="?accion=consultar_ticket">Consultar ticket</a></li>
         <li><a>Consultar usuario</a></li>
-        <li><a>Cerrar Sesion</a></li>
+        <li><a href="../controlador/controlador.php?cerrar_session=1">Cerrar Sesion</a></li>
     </ul>
 </section>
+<?php
+// validamos que opcion seleccciona el usuario
+
+if(isset($_GET['accion'])){
+    switch ($_GET['accion']) {
+    case 'crear_ticket';
+    include_once('formulario_crear_ticket.php');
+    break;
+    }
+}
+
+?>
+
 </body>
 </html>

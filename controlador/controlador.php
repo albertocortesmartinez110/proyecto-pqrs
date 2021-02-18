@@ -1,16 +1,52 @@
 <?php
-include ("../modelo/manejo_objetos.php");
+include("../modelo/manejo_objetos.php");
 
-$id_usuario= $_POST['id_usuario'];
+///comprobar que el usuario este registrado///
 
-$consulta = manejo_objetos::get_usuario($id_usuario);
+if (isset($_POST['ingresar'])) {
 
-///for ($i =0; $i<$consulta->length();$i++){
 
-    ///echo 'nombre';
+    $id_user = htmlentities(addslashes($_POST['id_usuario']));
+    $password_user = htmlentities(addslashes($_POST['password']));
 
-//}
+    //llamamos a la funcion estatuca get_usuario que realiza una consulta con el id proporcionada
+    $datos_usuario = manejo_objetos::get_usuario($id_user);
 
-var_dump($consulta);
-echo $consulta->getCiudadUsuario();
+    if (password_verify($password_user, $datos_usuario->getContraseñaUsuario())) {
+
+        session_start();
+        $_SESSION['Name_user'] = $datos_usuario->getNombresUsuario();
+        $_SESSION['Perfil_user'] = $datos_usuario->getPerfilUsuario();
+        $_SESSION['Img_user'] = $datos_usuario->getImgUsuario();
+
+        ///verificamos el tipo de perfil del usuario logeado
+
+        switch ($_SESSION['Perfil_user']){
+            case 'administrador':
+                header("location:../vista/vista_administrador.php");
+                break;
+            case 'agente':
+                header('location:../vista/vista_agente.php');
+                break;
+            case 'funcionario':
+                header('location:../vista/vista_funcionario.php');
+        }
+    }else{
+     ?>
+    <script>
+        alert('Datos ingresados incorrectos');
+        window.location.href="../vista/login.html";
+    </script>
+    <?php
+    }
+
+}
+
+if(isset($_GET['cerrar_session'])){
+    if ($_GET['cerrar_session']==1){
+        session_destroy();
+        header('location:../vista/login.html');
+    }
+}
+
 ?>

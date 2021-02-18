@@ -10,6 +10,23 @@ class objeto_usuario
     private $correo_usuario;
     private $contraseña_usuario;
     private $perfil_usuario;
+    private $img_usuario;
+
+    /**
+     * @return mixed
+     */
+    public function getImgUsuario()
+    {
+        return $this->img_usuario;
+    }
+
+    /**
+     * @param mixed $img_usuario
+     */
+    public function setImgUsuario($img_usuario): void
+    {
+        $this->img_usuario = $img_usuario;
+    }
 
     /**
      * @return mixed

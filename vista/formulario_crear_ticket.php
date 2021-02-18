@@ -6,9 +6,30 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/jquery.easing.1.3.js"></script>
+    <script>
+        $(document).ready(function (){
+
+            $('#sidebar').hover(function () {
+
+                $(this).stop().animate({
+                    left:'0px'
+                },500,'easeInSine'); ///termina efecto in
+            },function (){
+                $(this).stop().animate({
+                    left: '-203px'
+                },800,'easeOutBounce');///termina efecto out
+            });
+        });
+    </script>
     <title>formulario crear ticket</title>
 </head>
 <body>
+<?php
+
+if($_SESSION['Perfil_user'] =='administrador' || $_SESSION['Perfil_user']=='agente' || $_SESSION['Perfil_user'] == 'funcionario'){
+
+?>
 <section class="formulario_ticket">
 
     <form method="post" action="">
@@ -54,6 +75,10 @@
     </form>
 
 </section>
-
+<?php
+}else{
+    echo 'hola';
+}
+?>
 </body>
 </html>

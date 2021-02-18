@@ -24,7 +24,7 @@ class manejo_objetos{
         $usuario->setNombresUsuario($registro['nombres']);
         $usuario->setPerfilUsuario($registro['perfil']);
         $usuario->setTelefonoUsuario($registro['telefono']);
-
+        $usuario->setImgUsuario($registro['imagen']);
         return $usuario;
 
     }
