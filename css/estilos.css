@@ -179,7 +179,22 @@ input:focus {
     border-radius: 5px;
     padding-left: 4px;
 }
+.formulario_usuario select{
+    margin: 10px;
+    width: 280px;
+    height: 30px;
+    border: #4078c8 0.5px solid;
+    border-radius: 5px;
+    padding-left: 4px;
 
+}
+.formulario_usuario select:focus{
+
+    outline: none;
+    outline-width: 0;
+    box-shadow: 3px 3px 2px 2px #d8ffff;
+
+}
 input[type="number"] {
     -webkit-appearance: textfield !important;
     -moz-appearance: textfield !important;

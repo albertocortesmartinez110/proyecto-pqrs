@@ -24,8 +24,31 @@
 
             $("#contraseña2").blur(function (){
 
-                
+                var contra1 = $("#contraseña1").val();
+                var contra2 = $("#contraseña2").val();
+
+                if (contra1 != contra2){
+
+                    alert("las contraseñas no coinciden")
+
+                   $("#contraseña2").val('');
+                   $("#contraseña2").focus();
+                }
             })
+
+            $("#contraseña1").blur(function (){
+                var contra1 = $("#contraseña1").val();
+
+                if(contra2 !=''){
+
+                    if(contra1 != contra2){
+
+                        alert("las contraseñas no coinciden")
+
+                        $("#contraseña1").val('');
+                    }
+                }
+            });
 
 
         });
@@ -46,16 +69,16 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
     <form method="post" action="../controlador/controlador.php">
         <div class="row">
             <div class="col"><p>Id usuario</p></div>
-            <div class="col"><input type="number" name="id_usuario" placeholder="ingrese id del usuario" required></div>
+            <div class="col"><input type="number" name="id_user" placeholder="ingrese id del usuario" required></div>
         </div>
         <div class="row">
             <div class="col"><p>Nombres</p></div>
-            <div class="col"><input type="text" name="nombres_usuario" placeholder="ingrese nombres del usuario"
+            <div class="col"><input type="text" name="name" placeholder="ingrese nombres del usuario"
                                     required></div>
         </div>
         <div class="row">
             <div class="col"><p>Apellidos</p></div>
-            <div class="col"><input type="text" name="apellidos_usuario" placeholder="ingrese apellidos del usuario"
+            <div class="col"><input type="text" name="apell" placeholder="ingrese apellidos del usuario"
                                     required></div>
         </div>
         <div class="row">
@@ -78,13 +101,23 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
         </div>
         <div class="row">
             <div class="col"><p>Confirme contraseña</p></div>
-            <div class="col"><input type="password" id="contraseña2" name="contraseña1"
+            <div class="col"><input type="password" id="contraseña2" name="contraseña"
+                                    placeholder="ingrese confirmacion de la contraseña"
+                                    required></div>
+        </div>
+        <div class="row">
+            <div class="col"><p>Imagen</p></div>
+            <div class="col"><input type="password" id="contraseña2" name="contraseña"
                                     placeholder="ingrese confirmacion de la contraseña"
                                     required></div>
         </div>
         <div class="row">
             <div class="col"><p>Perfil del usuario</p></div>
-            <div class="col"><input type="number" name="perfil" placeholder="perfil del usuario" required></div>
+            <div class="col"><select name="perfil" required>
+                    <option value="funcionario">Funcionario</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="agente">Agente</option>
+                </select></div>
         </div>
         <div class="row">
             <div class="col"><input type="submit" class="enviar" value="registrar"
