@@ -41,7 +41,7 @@ if (isset($_POST['ingresar'])) {
     }
 
 }
-
+//funcion para cerrar sesion
 if(isset($_GET['cerrar_session'])){
     if ($_GET['cerrar_session']==1){
         session_start();
@@ -50,4 +50,33 @@ if(isset($_GET['cerrar_session'])){
     }
 }
 
+
+//funcion para crear usuario
+
+if(isset($_POST['registrar'])){
+
+    $id=htmlentities(addslashes($_POST['id_user']));
+    $nombres=htmlentities(addslashes($_POST['name']));
+    $apellidos=htmlentities(addslashes($_POST['apell']));
+    $contraseña=htmlentities(addslashes($_POST['contraseña']));
+    $contraseña_cif=password_hash($contraseña,PASSWORD_DEFAULT);
+    $correo=htmlentities(addslashes($_POST['correo']));
+    $ciudad=htmlentities(addslashes($_POST['ciudad']));
+    $telefono=htmlentities(addslashes($_POST['telefono']));
+    $imagen=htmlentities(addslashes($_POST['imagen']));
+    $perfil=htmlentities(addslashes($_POST['perfil']));
+
+    $usuario_creado = manejo_objetos::set_usuario($id,$nombres,$apellidos,$contraseña_cif,$correo,$ciudad,$telefono,$imagen,$perfil);
+
+    ?>
+
+    <script>
+
+        alert('Usuario creado satisfactoriamente con id ' + <?php echo $usuario_creado?> );
+        window.location.href="../vista/vista_administrador.php";
+    </script>
+<?php
+
+
+}
 ?>

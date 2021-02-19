@@ -20,7 +20,14 @@
                 $(this).stop().animate({
                     left: '-198px'
                 },800,'easeOutBounce');///termina efecto out
-            });
+            })
+
+            $("#contraseña2").blur(function (){
+
+                
+            })
+
+
         });
     </script>
 </head>
@@ -36,7 +43,7 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
 ?>
 <section class="formulario_usuario">
 
-    <form method="post" action="">
+    <form method="post" action="../controlador/controlador.php">
         <div class="row">
             <div class="col"><p>Id usuario</p></div>
             <div class="col"><input type="number" name="id_usuario" placeholder="ingrese id del usuario" required></div>
@@ -72,8 +79,12 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
         <div class="row">
             <div class="col"><p>Confirme contraseña</p></div>
             <div class="col"><input type="password" id="contraseña2" name="contraseña1"
-                                    placeholder="ingrese confirmacion de la contraseña" onChange="calcularpassword()"
+                                    placeholder="ingrese confirmacion de la contraseña"
                                     required></div>
+        </div>
+        <div class="row">
+            <div class="col"><p>Perfil del usuario</p></div>
+            <div class="col"><input type="number" name="perfil" placeholder="perfil del usuario" required></div>
         </div>
         <div class="row">
             <div class="col"><input type="submit" class="enviar" value="registrar"
