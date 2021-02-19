@@ -44,6 +44,7 @@ if (isset($_POST['ingresar'])) {
 
 if(isset($_GET['cerrar_session'])){
     if ($_GET['cerrar_session']==1){
+        session_start();
         session_destroy();
         header('location:../vista/login.html');
     }

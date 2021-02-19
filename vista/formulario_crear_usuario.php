@@ -7,8 +7,33 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/jquery.easing.1.3.js"></script>
+    <script>
+        $(document).ready(function (){
+
+            $('#sidebar').hover(function () {
+
+                $(this).stop().animate({
+                    left:'0px'
+                },500,'easeInSine'); ///termina efecto in
+            },function (){
+                $(this).stop().animate({
+                    left: '-198px'
+                },800,'easeOutBounce');///termina efecto out
+            });
+        });
+    </script>
 </head>
 <body>
+<?php
+
+if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador'){
+
+
+    header('location:login.html');
+
+}else{
+?>
 <section class="formulario_usuario">
 
     <form method="post" action="">
@@ -60,5 +85,9 @@
         </div>
     </form>
 </section>
+<?php
+}
+?>
+?>
 </body>
 </html>

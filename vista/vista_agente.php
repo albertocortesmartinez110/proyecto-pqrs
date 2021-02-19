@@ -17,7 +17,7 @@
                 },500,'easeInSine'); ///termina efecto in
             },function (){
                 $(this).stop().animate({
-                    left: '-203px'
+                    left: '-198px'
                 },800,'easeOutBounce');///termina efecto out
             });
         });
@@ -27,6 +27,11 @@
 <body>
 <?php
 session_start();
+
+if (!isset($_SESSION['Name_user']) || $_SESSION['Perfil_user'] != 'agente'){
+    header('location:login.html');
+}else{
+
 ?>
 <section class="sidebar" id="sidebar">
     <ul>
@@ -47,9 +52,12 @@ if(isset($_GET['accion'])){
         case 'crear_ticket';
             include_once('formulario_crear_ticket.php');
             break;
+        case 'consultar_ticket';
+            include_once('formulario_modificar_ticket.php');
+            break;
     }
 }
-
+}
 ?>
 
 </body>

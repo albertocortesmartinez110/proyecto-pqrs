@@ -17,7 +17,7 @@
                 },500,'easeInSine'); ///termina efecto in
             },function (){
                 $(this).stop().animate({
-                    left: '-203px'
+                    left: '-198px'
                 },800,'easeOutBounce');///termina efecto out
             });
         });
@@ -27,9 +27,13 @@
 <body>
 <?php
 
-if($_SESSION['Perfil_user'] =='administrador' || $_SESSION['Perfil_user']=='agente' || $_SESSION['Perfil_user'] == 'funcionario'){
+if(!isset($_SESSION['Perfil_user'])){
 
-?>
+
+    header('location:login.html');
+
+}else{
+    ?>
 <section class="formulario_ticket">
 
     <form method="post" action="">
@@ -76,8 +80,6 @@ if($_SESSION['Perfil_user'] =='administrador' || $_SESSION['Perfil_user']=='agen
 
 </section>
 <?php
-}else{
-    echo 'hola';
 }
 ?>
 </body>

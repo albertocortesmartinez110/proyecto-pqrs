@@ -89,7 +89,7 @@ input:focus {
     height: 100%;
     outline: 1px solid #484646;
     font-size: 17px;
-    left: -203px;
+    left: -198px;
     z-index: 2;
 }
 
@@ -161,7 +161,7 @@ input:focus {
     width: 50%;
     background-color: white;
     margin: auto;
-    margin-top: 40px;
+    margin-top: 0px;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
