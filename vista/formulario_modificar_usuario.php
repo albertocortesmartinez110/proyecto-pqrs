@@ -8,39 +8,62 @@
     <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <script src="../js/jquery-3.5.1.js"></script>
     <script src="../js/jquery.easing.1.3.js"></script>
+
+
+    <?php
+    if($_SESSION['Perfil_user'] =='administrador'){
+
+
+    ?>
+
     <script>
+
         $(document).ready(function () {
 
             $('#sidebar').hover(function () {
 
                 $(this).stop().animate({
                     left: '0px'
-                }, 500, 'easeInSine'); ///termina efecto in
+                         }, 500, 'easeInSine'); ///termina efecto in
             }, function () {
                 $(this).stop().animate({
                     left: '-198px'
                 }, 800, 'easeOutBounce');///termina efecto out
             });
-
-            <?php
-            if(1>2){
-                ?>
-                $("#formulario_usuario input").prop('disabled', false);
-                <?php
-            }
-            ?>
+            $("#formulario_usuario input").prop('disabled', false);
+            $("#modificar").append("<input type='submit' class='enviar' value='modificar' name='modificar'>");
         });
 
-
-
-
-
-
-
-
     </script>
+    <?php
+    }else{
+    ?>
+        <script>
+
+            $(document).ready(function () {
+
+                $('#sidebar').hover(function () {
+
+                    $(this).stop().animate({
+                        left: '0px'
+                    }, 500, 'easeInSine'); ///termina efecto in
+                }, function () {
+                    $(this).stop().animate({
+                        left: '-198px'
+                    }, 800, 'easeOutBounce');///termina efecto out
+                });
+            });
+        </script>
+
+
+    <?php
+    }
+    ?>
 </head>
 <body>
+
+
+
 <?php
 
 /*if (!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] != 'administrador') {
@@ -99,7 +122,7 @@
                                     required disabled></div>
         </div>
         <div class="row">
-            <div class="col"></div>
+            <div class="col"><p>Perfil del usuario</p></div>
             <div class="col"><input type="number" name="perfil" placeholder="perfil del usuario" disabled></div>
         </div>
         <div class="row">

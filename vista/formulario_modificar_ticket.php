@@ -26,16 +26,13 @@
 </head>
 <body>
 <?php
-
-if($_SESSION['Perfil_user'] !='administrador' || $_SESSION['Perfil_user'] !='agente' ){
-
+if(($_SESSION['Perfil_user'] !='administrador') && ($_SESSION['Perfil_user'] !='agente')){
 
     header('location:login.html');
 
 }else{
 ?>
 <section class="formulario_ticket">
-
     <form method="post" action="">
         <section class="datos_ticket_1">
             <div class="row">

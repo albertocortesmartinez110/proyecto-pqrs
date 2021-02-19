@@ -39,7 +39,7 @@ if(!isset($_SESSION['Name_user']) || $_SESSION['Perfil_user'] !='administrador')
         <li><a href="?accion=crear_ticket">Crear ticket</a></li>
         <li><a href="?accion=crear_usuario">Crear usuario</a></li>
         <li><a href="?accion=consultar_ticket">Consultar ticket</a></li>
-        <li><a>Consultar usuario</a></li>
+        <li><a href="?accion=consultar_usuario">Consultar usuario</a></li>
         <li><a href="../controlador/controlador.php?cerrar_session=1">Cerrar Sesion</a></li>
     </ul>
 </section>
@@ -56,6 +56,9 @@ if(isset($_GET['accion'])){
     break;
     case 'consultar_ticket';
     include_once('formulario_modificar_ticket.php');
+    break;
+    case 'consultar_usuario';
+    include_once('formulario_modificar_usuario.php');
     break;
     }
 }

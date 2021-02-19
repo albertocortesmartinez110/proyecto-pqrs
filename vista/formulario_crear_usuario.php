@@ -76,10 +76,6 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
                                     required></div>
         </div>
         <div class="row">
-            <div class="col"></div>
-            <div class="col"><input type="number" name="perfil" placeholder="perfil del usuario" disabled></div>
-        </div>
-        <div class="row">
             <div class="col"><input type="submit" class="enviar" value="registrar"
                                     name="registrar"></div>
         </div>
