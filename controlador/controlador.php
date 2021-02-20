@@ -18,6 +18,7 @@ if (isset($_POST['ingresar'])) {
         $_SESSION['Name_user'] = $datos_usuario->getNombresUsuario();
         $_SESSION['Perfil_user'] = $datos_usuario->getPerfilUsuario();
         $_SESSION['Img_user'] = $datos_usuario->getImgUsuario();
+        $_SESSION['Id_user'] = $datos_usuario->getIdUsuario();
 
         ///verificamos el tipo de perfil del usuario logeado
 
@@ -71,7 +72,6 @@ if(isset($_POST['registrar'])){
     $usuario->setPerfilUsuario(htmlentities(addslashes($_POST['perfil']),ENT_QUOTES));
 
     $usuario_creado = manejo_objetos::set_usuario($usuario);
-
     ?>
 
     <script>
@@ -80,6 +80,18 @@ if(isset($_POST['registrar'])){
         window.location.href="../vista/vista_administrador.php";
     </script>
 <?php
+
+
+}
+if (isset($_POST['crear_ticket'])){
+
+    $ticket = new objeto_ticket();
+
+    $ticket->setIdUsuarioAfectado(htmlentities(addslashes($_POST['id_usuario_afectado']),ENT_QUOTES));
+    $ticket->setIdCreadoPor(htmlentities(addslashes($_SESSION['id_user']),ENT_QUOTES));
+    $ticket->setIdAgenteAsignado(htmlentities(addslashes($_POST['id_usuario_asginado']),ENT_QUOTES));
+    $ticket->setEstado(htmlentities(addslashes('Abierto'),ENT_QUOTES));
+    $ticket->setFechaCreado(Date("Y-m-d H:i:s"));
 
 
 }

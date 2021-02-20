@@ -1,6 +1,7 @@
 <?php
 include ('../modelo/conectar.php');
 include ('clase_usuarios.php');
+include ('clase_tickets.php');
 
 class manejo_objetos{
 
@@ -68,7 +69,6 @@ class manejo_objetos{
 
             return $objeto_usuario->getIdUsuario();
 
-            var_dump($objeto_usuario);
 
         }catch (Exception $e){
 
@@ -113,6 +113,54 @@ class manejo_objetos{
 
         }
     }
+    //funcion crear ticket
+
+    public static function set_tickets(Objeto_ticket $objeto_ticket){
+
+        switch ($objeto_ticket->getTipo){
+
+            case 'Incidente':
+
+            try {
+                $pdo = conectar::conexion();
+                $query = "insert into incidentes (id_usuario_afectado, fecha_creado, id_agente_asignado, id_creado_por, estado) 
+            values (:id_usario_afectado,:fecha_creado, :id_agente_asignado, :id_creado_por, :estado)";
+                $ejecutar = $pdo->prepare($query);
+                $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
+                    ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
+                    ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
+            }catch (Exception $e){
+
+                die("Error " .$e->getMessage(). 'en la fila '.$e->getFile());
+
+
+            }
+            break;
+
+            case 'Requerimiento':
+
+                try {
+                    $pdo = conectar::conexion();
+                    $query = "insert into requerimientos (id_usuario_afectado, fecha_creado, id_agente_asignado, id_creado_por, estado) 
+            values (:id_usario_afectado,:fecha_creado, :id_agente_asignado, :id_creado_por, :estado)";
+                    $ejecutar = $pdo->prepare($query);
+                    $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
+                        ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
+                        ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
+                }catch (Exception $e){
+
+                    die("Error " .$e->getMessage(). 'en la fila '.$e->getFile());
+
+
+                }
+
+            break;
+        }
+
+
+
+    }
+
 }
 
 

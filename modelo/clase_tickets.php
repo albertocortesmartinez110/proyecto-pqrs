@@ -1,14 +1,30 @@
 <?php
 
- class objeto_tickets{
+ class objeto_ticket{
 
      protected $id_ticket;
      protected $id_usuario_afectado;
      protected $fecha_creado;
-     protected $hora_creacion;
      protected $id_agente_asignado;
      protected $id_creado_por;
      protected $estado;
+     protected $tipo;
+
+     /**
+      * @return mixed
+      */
+     public function getTipo()
+     {
+         return $this->tipo;
+     }
+
+     /**
+      * @param mixed $tipo
+      */
+     public function setTipo($tipo): void
+     {
+         $this->tipo = $tipo;
+     }
 
      /**
       * @return mixed
@@ -58,21 +74,6 @@
          $this->id_agente_asignado = $id_agente_asignado;
      }
 
-     /**
-      * @return mixed
-      */
-     public function getHoraCreacion()
-     {
-         return $this->hora_creacion;
-     }
-
-     /**
-      * @param mixed $hora_creacion
-      */
-     public function setHoraCreacion($hora_creacion): void
-     {
-         $this->hora_creacion = $hora_creacion;
-     }
 
      /**
       * @return mixed
@@ -127,5 +128,7 @@
 
 
  }
+
+
 
 ?>
