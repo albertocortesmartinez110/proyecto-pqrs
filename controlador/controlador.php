@@ -6,8 +6,8 @@ include("../modelo/manejo_objetos.php");
 if (isset($_POST['ingresar'])) {
 
 
-    $id_user = htmlentities(addslashes($_POST['id_usuario']));
-    $password_user = htmlentities(addslashes($_POST['password']));
+    $id_user = htmlentities(addslashes($_POST['id_usuario']),ENT_QUOTES);
+    $password_user = htmlentities(addslashes($_POST['password']),ENT_QUOTES);
 
     //llamamos a la funcion estatuca get_usuario que realiza una consulta con el id proporcionada
     $datos_usuario = manejo_objetos::get_usuario($id_user);
@@ -55,18 +55,22 @@ if(isset($_GET['cerrar_session'])){
 
 if(isset($_POST['registrar'])){
 
-    $id=htmlentities(addslashes($_POST['id_user']));
-    $nombres=htmlentities(addslashes($_POST['name']));
-    $apellidos=htmlentities(addslashes($_POST['apell']));
-    $contraseña=htmlentities(addslashes($_POST['contraseña']));
-    $contraseña_cif=password_hash($contraseña,PASSWORD_DEFAULT);
-    $correo=htmlentities(addslashes($_POST['correo']));
-    $ciudad=htmlentities(addslashes($_POST['ciudad']));
-    $telefono=htmlentities(addslashes($_POST['telefono']));
-    $imagen=htmlentities(addslashes($_POST['imagen']));
-    $perfil=htmlentities(addslashes($_POST['perfil']));
+    manejo_objetos::comprobar_imagen();
 
-    $usuario_creado = manejo_objetos::set_usuario($id,$nombres,$apellidos,$contraseña_cif,$correo,$ciudad,$telefono,$imagen,$perfil);
+    $usuario = new objeto_usuario();
+
+    $usuario->setIdUsuario(htmlentities(addslashes($_POST['id_user']),ENT_QUOTES));
+    $usuario->setNombresUsuario(htmlentities(addslashes($_POST['name']),ENT_QUOTES));
+    $usuario->setApellidosUsuario(htmlentities(addslashes($_POST['apell']),ENT_QUOTES));
+    $contraseña=htmlentities(addslashes($_POST['contraseña']),ENT_QUOTES);
+    $usuario->setContraseñaUsuario(password_hash($contraseña,PASSWORD_DEFAULT));
+    $usuario->setCorreoUsuario(htmlentities(addslashes($_POST['correo']),ENT_QUOTES));
+    $usuario->setCiudadUsuario(htmlentities(addslashes($_POST['ciudad']),ENT_QUOTES));
+    $usuario->setTelefonoUsuario(htmlentities(addslashes($_POST['telefono']),ENT_QUOTES));
+    $usuario->setImgUsuario($_FILES['imagen']['name']);
+    $usuario->setPerfilUsuario(htmlentities(addslashes($_POST['perfil']),ENT_QUOTES));
+
+    $usuario_creado = manejo_objetos::set_usuario($usuario);
 
     ?>
 

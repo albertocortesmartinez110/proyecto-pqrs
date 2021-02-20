@@ -178,6 +178,7 @@ input:focus {
     border: #4078c8 0.5px solid;
     border-radius: 5px;
     padding-left: 4px;
+    padding-top: 3px;
 }
 .formulario_usuario select{
     margin: 10px;

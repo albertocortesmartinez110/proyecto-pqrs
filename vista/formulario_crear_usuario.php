@@ -66,7 +66,7 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
 ?>
 <section class="formulario_usuario">
 
-    <form method="post" action="../controlador/controlador.php">
+    <form method="post" action="../controlador/controlador.php" enctype="multipart/form-data">
         <div class="row">
             <div class="col"><p>Id usuario</p></div>
             <div class="col"><input type="number" name="id_user" placeholder="ingrese id del usuario" required></div>
@@ -105,10 +105,11 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
                                     placeholder="ingrese confirmacion de la contraseña"
                                     required></div>
         </div>
+
         <div class="row">
             <div class="col"><p>Imagen</p></div>
-            <div class="col"><input type="password" id="contraseña2" name="contraseña"
-                                    placeholder="ingrese confirmacion de la contraseña"
+            <div class="col"><input type="file" id="imagen" name="imagen"
+                                    placeholder="ingrese una imagen"
                                     required></div>
         </div>
         <div class="row">
