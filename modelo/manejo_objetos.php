@@ -2,7 +2,7 @@
 include('../modelo/conectar.php');
 include('clase_usuarios.php');
 include('clase_tickets.php');
-include('clase_comentarios.php')    ;
+include('clase_comentarios.php');
 
 class manejo_objetos
 {
@@ -135,7 +135,7 @@ class manejo_objetos
                         ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
                         ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
 
-            } catch (Exception $e) {
+                } catch (Exception $e) {
 
                     die("Error: " . $e->getMessage() . 'en  la fila: ' . $e->getFile());
 
@@ -152,7 +152,7 @@ class manejo_objetos
                     $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
                         ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
                         ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
-                    $last_inser=$pdo->lastInsertId();
+                    $last_inser = $pdo->lastInsertId();
                     $pdo->commit();
                     $ejecutar->closeCursor();
                     return $last_inser;
@@ -170,7 +170,8 @@ class manejo_objetos
 
     }
 
-    public static function set_comentarios(Objeto_comentario $objeto_comentario){
+    public static function set_comentarios(Objeto_comentario $objeto_comentario)
+    {
 
 
         try {
@@ -180,11 +181,28 @@ class manejo_objetos
             $ejecutar = $pdo->prepare($query);
             $ejecutar->execute(array(':id_ticket' => $objeto_comentario->getIdTicket(), ':id_usuario' => $objeto_comentario->getIdUsuario(),
                 ':comentario' => $objeto_comentario->getComentario(), ':fecha_comentario' => $objeto_comentario->getFechaComentario()));
-        }catch (Exception $e){
+        } catch (Exception $e) {
 
-            die("Error: " . $e->getMessage().' en la fila :'.$e->getFile());
+            die("Error: " . $e->getMessage() . ' en la fila :' . $e->getFile());
         }
+    }
+    public static function get_usuarios_id(Objeto_usuario $objeto_usuario){
+
+        $pdo = conectar::conexion();
+        $query = "select id_usuario from usuarios where :id_usuario";
+        $usuarios = array();
+        $contador = 0;
+        $ejecutar= $pdo->prepare($query);
+        $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
+        $resultado = $ejecutar->fetch(PDO::FETCH_ASSOC);
+
+        while ($resultado) {
+            $usuario = new $objeto_usuario;
+            $objeto_usuario->setIdUsuario();
+        $usuarios[$contador]=$objeto_usuario;
+        $contador++;
         }
+    }
 
 }
 
