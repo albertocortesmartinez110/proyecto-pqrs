@@ -180,7 +180,7 @@ input:focus {
     padding-left: 4px;
     padding-top: 3px;
 }
-.formulario_usuario select{
+select{
     margin: 10px;
     width: 280px;
     height: 30px;
@@ -189,7 +189,7 @@ input:focus {
     padding-left: 4px;
 
 }
-.formulario_usuario select:focus{
+select:focus{
 
     outline: none;
     outline-width: 0;

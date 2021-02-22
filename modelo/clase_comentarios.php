@@ -1,29 +1,13 @@
 <?php
 
-class objeto_comentarios{
+class objeto_comentario{
 
     protected $id_comentario;
     protected $id_ticket;
     protected $id_usuario;
     protected $comentario;
     protected $fecha_comentario;
-    protected $hora_comentario;
 
-    /**
-     * @return mixed
-     */
-    public function getHoraComentario()
-    {
-        return $this->hora_comentario;
-    }
-
-    /**
-     * @param mixed $hora_comentario
-     */
-    public function setHoraComentario($hora_comentario): void
-    {
-        $this->hora_comentario = $hora_comentario;
-    }
 
     /**
      * @return mixed

@@ -157,7 +157,7 @@ class manejo_objetos{
             break;
         }
 
-
+        return PDO::lastinsertid();
 
     }
 

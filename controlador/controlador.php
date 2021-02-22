@@ -92,6 +92,18 @@ if (isset($_POST['crear_ticket'])){
     $ticket->setIdAgenteAsignado(htmlentities(addslashes($_POST['id_usuario_asginado']),ENT_QUOTES));
     $ticket->setEstado(htmlentities(addslashes('Abierto'),ENT_QUOTES));
     $ticket->setFechaCreado(Date("Y-m-d H:i:s"));
+    $ticket->setTipo(htmlentities(addslashes($_POST['tipo'])));
+
+    $ticket->setIdTicket(manejo_objetos::set_tickets($ticket));
+
+    //$last_id=manejo_objetos::set_tickets($ticket);
+
+    $comentario = new objeto_comentario();
+    $comentario->setIdTicket($ticket->getIdTicket());
+    $comentario->setIdUsuario($ticket->getIdCreadoPor());
+    $comentario->setFechaComentario(Date("Y-m-d H:i:s"));
+    $comentario->setComentario($_POST['comentario']);
+
 
 
 }

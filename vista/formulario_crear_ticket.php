@@ -40,36 +40,40 @@ if(!isset($_SESSION['Perfil_user'])){
         <section class="datos_usuario">
             <div class="row">
                 <div class="col"><p>Id usuario</p></div>
-                <div class="col"><input type="number" name="id_usuario" placeholder="ingrese id del usuario" required></div>
+                <div class="col"><input type="number" name="id_usuario_afectado" placeholder="ingrese id del usuario" required></div>
                 <div class="col"><p>Nombres</p></div>
                 <div class="col"><input type="text" name="nombres_usuario" required disabled></div>
             </div>
             <div class="row">
 
                 <div class="col"><p>Apellidos</p></div>
-                <div class="col"><input type="text" name="nombres_usuario" required disabled></div>
+                <div class="col"><input type="text" name="apellidos_usuario" required disabled></div>
                 <div class="col"><p>Ciudad</p></div>
-                <div class="col"><input type="text" name="nombres_usuario" required disabled></div>
+                <div class="col"><input type="text" name="ciudad_usuario" required disabled></div>
             </div>
             <div class="row">
                 <div class="col"><p>Telefono</p></div>
-                <div class="col"><input type="text" name="apellidos_usuario" required disabled></div>
+                <div class="col"><input type="text" name="telefono_usuario" required disabled></div>
                 <div class="col"><p>Correo</p></div>
-                <div class="col"><input type="text" name="apellidos_usuario" required disabled></div>
+                <div class="col"><input type="text" name="correo_usuario" required disabled></div>
             </div>
         </section>
         <section class="datos_ticket">
         <div class="row">
             <div class="col"><p>Tipo</p></div>
-            <div class="col"><input type="text" name="ciudad" placeholder="ingrese tipo" required></div>
+            <div class="col"><select name="perfil" required>
+                    <option value="funcionario">Funcionario</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+            </div>
             <div class="col"><p>Asignar a</p></div>
-            <div class="col"><input type="text" name="ciudad" placeholder="ingrese agente" required></div>
+            <div class="col"><input type="text" name="id_usuario_asignado" placeholder="ingrese agente" required></div>
         </div>
             <div class="row">
-                <div class="col"><p>Observacion</p></div>
+                <div class="col"><p>Comentario</p></div>
             </div>
             <div class="row">
-                <div class="col"> <textarea type="number" name="telefono" class="observacion" placeholder="ingrese observacion" required></textarea></div>
+                <div class="col"> <textarea type="number" name="comentario" class="observacion" placeholder="ingrese comentario" required></textarea></div>
             </div>
         </section>
         <div class="row">
