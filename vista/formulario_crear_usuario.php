@@ -115,8 +115,10 @@ if(!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] !='administrador
         <div class="row">
             <div class="col"><p>Perfil del usuario</p></div>
             <div class="col"><select name="tipo" required>
-                    <option value="Incidente">Funcionario</option>
-                    <option value="Requerimiento">Administrador</option>
+
+                    <option value="funcionario">Funcionario</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="agente">Agente</option>
                 </select>
             </div>
         </div>

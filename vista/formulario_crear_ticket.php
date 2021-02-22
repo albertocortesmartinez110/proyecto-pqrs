@@ -20,6 +20,8 @@
                     left: '-198px'
                 },800,'easeOutBounce');///termina efecto out
             });
+
+            $("#formulario_ticket input").prop('required',false);
         });
     </script>
     <title>formulario crear ticket</title>
@@ -36,7 +38,7 @@ if(!isset($_SESSION['Perfil_user'])){
     ?>
 <section class="formulario_ticket">
 
-    <form method="post" action="">
+    <form method="post" action="../controlador/controlador.php" id="formulario_ticket">
         <section class="datos_usuario">
             <div class="row">
                 <div class="col"><p>Id usuario</p></div>
@@ -61,9 +63,9 @@ if(!isset($_SESSION['Perfil_user'])){
         <section class="datos_ticket">
         <div class="row">
             <div class="col"><p>Tipo</p></div>
-            <div class="col"><select name="perfil" required>
-                    <option value="funcionario">Funcionario</option>
-                    <option value="administrador">Administrador</option>
+            <div class="col"><select name="tipo" required>
+                    <option value="Incidente">Incidente</option>
+                    <option value="Requerimiento">Requerimiento</option>
                 </select>
             </div>
             <div class="col"><p>Asignar a</p></div>
@@ -78,7 +80,7 @@ if(!isset($_SESSION['Perfil_user'])){
         </section>
         <div class="row">
             <div class="col"><input type="submit" class="enviar" value="registrar"
-                                    name="registrar"></div>
+                                    name="crear_ticket"></div>
         </div>
     </form>
 

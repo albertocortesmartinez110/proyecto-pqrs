@@ -1,9 +1,11 @@
 <?php
-include ('../modelo/conectar.php');
-include ('clase_usuarios.php');
-include ('clase_tickets.php');
+include('../modelo/conectar.php');
+include('clase_usuarios.php');
+include('clase_tickets.php');
+include('clase_comentarios.php')    ;
 
-class manejo_objetos{
+class manejo_objetos
+{
 
 
     // funcion para pedir datos del usuario que se logea
@@ -31,9 +33,9 @@ class manejo_objetos{
             $usuario->setTelefonoUsuario($registro['telefono']);
             $usuario->setImgUsuario($registro['imagen']);
             return $usuario;
-        }catch (Exception $e){
+        } catch (Exception $e) {
 
-            die('Error: '.$e->getMessage().' ila del error: '.$e->getFile());
+            die('Error: ' . $e->getMessage() . ' ila del error: ' . $e->getFile());
         }
     }
 
@@ -55,7 +57,8 @@ class manejo_objetos{
 
     }*/
 
-    public static function set_usuario(Objeto_usuario $objeto_usuario){
+    public static function set_usuario(Objeto_usuario $objeto_usuario)
+    {
 
         try {
             $pdo = conectar::conexion();
@@ -70,9 +73,9 @@ class manejo_objetos{
             return $objeto_usuario->getIdUsuario();
 
 
-        }catch (Exception $e){
+        } catch (Exception $e) {
 
-            die("Error: ".$e->getMessage() . ' fila del error : '.$e->getFile());
+            die("Error: " . $e->getMessage() . ' fila del error : ' . $e->getFile());
         }
 
     }
@@ -80,10 +83,11 @@ class manejo_objetos{
 
     //funcion comprobar subida de imagenes
 
-    public static function comprobar_imagen(){
+    public static function comprobar_imagen()
+    {
 
-        if ($_FILES['imagen']['error']){
-            switch ($_FILES['imagen']['error']){
+        if ($_FILES['imagen']['error']) {
+            switch ($_FILES['imagen']['error']) {
 
                 case 1: //exceso de tamaño
                     echo "El tamaño del archivo excede lo permitido";
@@ -95,71 +99,92 @@ class manejo_objetos{
                     echo "No se ha enviado ningun archivo";
                     break;
             }
-        }else{
+        } else {
 
             echo "Entrada subida correctamente </br>";
 
-            if ((isset($_FILES['imagen']['name']) && ($_FILES['imagen']['error']==UPLOAD_ERR_OK))){
+            if ((isset($_FILES['imagen']['name']) && ($_FILES['imagen']['error'] == UPLOAD_ERR_OK))) {
 
-                $destino_de_ruta=$_SERVER['DOCUMENT_ROOT']."/curso_php/Proyecto_tickets_final/imagenes/";
-                move_uploaded_file($_FILES['imagen']['tmp_name'],$destino_de_ruta . $_FILES['imagen']['name']);
+                $destino_de_ruta = $_SERVER['DOCUMENT_ROOT'] . "/curso_php/Proyecto_tickets_final/imagenes/";
+                move_uploaded_file($_FILES['imagen']['tmp_name'], $destino_de_ruta . $_FILES['imagen']['name']);
 
                 echo "El archivo " . $_FILES['imagen']['name'] . " se ha copiado en el directorio de imagenes</br>";
 
-            }else{
+            } else {
 
                 echo "El archivo no se ha podido copiar al directorio de imagenes";
             }
 
         }
     }
+
     //funcion crear ticket
 
-    public static function set_tickets(Objeto_ticket $objeto_ticket){
+    public static function set_tickets(Objeto_ticket $objeto_ticket)
+    {
 
-        switch ($objeto_ticket->getTipo){
+        switch ($objeto_ticket->getTipo()) {
 
             case 'Incidente':
 
-            try {
-                $pdo = conectar::conexion();
-                $query = "insert into incidentes (id_usuario_afectado, fecha_creado, id_agente_asignado, id_creado_por, estado) 
-            values (:id_usario_afectado,:fecha_creado, :id_agente_asignado, :id_creado_por, :estado)";
-                $ejecutar = $pdo->prepare($query);
-                $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
-                    ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
-                    ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
-            }catch (Exception $e){
-
-                die("Error " .$e->getMessage(). 'en la fila '.$e->getFile());
-
-
-            }
-            break;
-
-            case 'Requerimiento':
-
                 try {
                     $pdo = conectar::conexion();
-                    $query = "insert into requerimientos (id_usuario_afectado, fecha_creado, id_agente_asignado, id_creado_por, estado) 
-            values (:id_usario_afectado,:fecha_creado, :id_agente_asignado, :id_creado_por, :estado)";
+                    $query = "insert into incidentes (id_usuario_afectado,fecha_creado,id_agente_asignado,id_creado_por,estado) values(:id_usuario_afectado,:fecha_creado,:id_agente_asignado,:id_creado_por, :estado)";
                     $ejecutar = $pdo->prepare($query);
                     $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
                         ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
                         ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
-                }catch (Exception $e){
 
-                    die("Error " .$e->getMessage(). 'en la fila '.$e->getFile());
+            } catch (Exception $e) {
+
+                    die("Error: " . $e->getMessage() . 'en  la fila: ' . $e->getFile());
+
+                }
+
+                break;
+            case 'Requerimiento':
+
+                try {
+                    $pdo = conectar::conexion();
+                    $pdo->beginTransaction();
+                    $query = "insert into requerimientos (id_usuario_afectado,fecha_creado,id_agente_asignado,id_creado_por,estado) values(:id_usuario_afectado,:fecha_creado, :id_agente_asignado, :id_creado_por, :estado)";
+                    $ejecutar = $pdo->prepare($query);
+                    $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
+                        ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
+                        ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
+                    $last_inser=$pdo->lastInsertId();
+                    $pdo->commit();
+                    $ejecutar->closeCursor();
+                    return $last_inser;
+                } catch (Exception $e) {
+                    $pdo->rollBack();
+
+                    die("Error " . $e->getMessage() . 'en la fila ' . $e->getFile());
 
 
                 }
 
-            break;
+                break;
         }
-
-        return PDO::lastinsertid();
+        return $pdo->lastInsertId();
 
     }
+
+    public static function set_comentarios(Objeto_comentario $objeto_comentario){
+
+
+        try {
+            $pdo = conectar::conexion();
+            $query = "insert into comentarios (id_ticket, id_usuario, comentario, fecha_comentario) 
+                 values (:id_ticket, :id_usuario,:comentario,:fecha_comentario)";
+            $ejecutar = $pdo->prepare($query);
+            $ejecutar->execute(array(':id_ticket' => $objeto_comentario->getIdTicket(), ':id_usuario' => $objeto_comentario->getIdUsuario(),
+                ':comentario' => $objeto_comentario->getComentario(), ':fecha_comentario' => $objeto_comentario->getFechaComentario()));
+        }catch (Exception $e){
+
+            die("Error: " . $e->getMessage().' en la fila :'.$e->getFile());
+        }
+        }
 
 }
 

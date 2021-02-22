@@ -84,27 +84,62 @@ if(isset($_POST['registrar'])){
 
 }
 if (isset($_POST['crear_ticket'])){
+    session_start();
 
     $ticket = new objeto_ticket();
 
     $ticket->setIdUsuarioAfectado(htmlentities(addslashes($_POST['id_usuario_afectado']),ENT_QUOTES));
-    $ticket->setIdCreadoPor(htmlentities(addslashes($_SESSION['id_user']),ENT_QUOTES));
-    $ticket->setIdAgenteAsignado(htmlentities(addslashes($_POST['id_usuario_asginado']),ENT_QUOTES));
+    $ticket->setIdCreadoPor(htmlentities(addslashes($_SESSION['Id_user']),ENT_QUOTES));
+    $ticket->setIdAgenteAsignado(htmlentities(addslashes($_POST['id_usuario_asignado']),ENT_QUOTES));
     $ticket->setEstado(htmlentities(addslashes('Abierto'),ENT_QUOTES));
     $ticket->setFechaCreado(Date("Y-m-d H:i:s"));
     $ticket->setTipo(htmlentities(addslashes($_POST['tipo'])));
 
     $ticket->setIdTicket(manejo_objetos::set_tickets($ticket));
 
-    //$last_id=manejo_objetos::set_tickets($ticket);
-
     $comentario = new objeto_comentario();
     $comentario->setIdTicket($ticket->getIdTicket());
     $comentario->setIdUsuario($ticket->getIdCreadoPor());
     $comentario->setFechaComentario(Date("Y-m-d H:i:s"));
     $comentario->setComentario($_POST['comentario']);
+    manejo_objetos::set_comentarios($comentario);
+
+    ?>
+    <script>
+      alert("Se ha creado el ticket con id : "+<?php echo $ticket->getIdTicket(); ?>);
+    </script>
+    <?php
+
+    switch ($_SESSION['Perfil_user']){
+        case 'administrador':
+        ?>
+        <script>
+            window.location.href="../vista/vista_administrador.php";
+        </script>
+
+        <?php
 
 
+            break;
+        case 'agente':
+            ?>
+            <script>
+                window.location.href="../vista/vista_agente.php";
+            </script>
 
-}
-?>
+            <?php
+
+            break;
+        case 'funcionario':
+            ?>
+            <script>
+                window.location.href="../vista/vista_funcionario.php";
+            </script>
+
+            <?php
+
+            break;
+    }
+    }
+
+    ?>
