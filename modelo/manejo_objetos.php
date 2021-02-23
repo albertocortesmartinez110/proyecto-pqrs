@@ -213,6 +213,17 @@ class manejo_objetos
         ///return $usuarios;
     }
 
+    public static function get_datos_usuarios(Objeto_usuario $objeto_usuario){
+
+        $pdo = conectar::conexion();
+        $query="select * from usuarios where id_usuario =:id_usuario ";
+        $ejecutar = $pdo->prepare($query);
+        $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
+        $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+
+    }
+
 }
 
 
