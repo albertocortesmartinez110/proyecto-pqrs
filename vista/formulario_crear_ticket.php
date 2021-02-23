@@ -24,11 +24,27 @@
             $("#formulario_ticket input").prop('required',false);
 
 
-            $("#usuario_afectado").keydown(function (){
+            $("#usuario_afectado").keyup(function(){
 
-                var id_usuario={id_usuario:$("#usuario_afectado").val()}
+                var datos=$("#usuario_afectado").serialize();
 
-                $.getJSON("../controlador/controlador.php",id_usuario, procesar_datos);
+               $.ajax({
+                 data:datos,
+                 url:"../controlador/controlador.php",
+                   type:"get",
+                 beforeSend:function (){
+                     console.log("Se esta procesando tu peticion");
+                 }
+
+               })
+                .done(function (data){
+                    console.log(data);
+                    var datos = JSON.parse(data);
+                    console.log(datos);
+
+
+                })
+
 
             });
 
@@ -58,7 +74,12 @@ if(!isset($_SESSION['Perfil_user'])){
         <section class="datos_usuario">
             <div class="row">
                 <div class="col"><p>Id usuario</p></div>
-                <div class="col"><input type="number" name="id_usuario_afectado" id="usuario_afectado" placeholder="ingrese id del usuario" required></div>
+                <div class="col"><input type="number" name="id_usuario_afectado" id="usuario_afectado" list="lista" placeholder="ingrese id del usuario" required>
+                <datalist id="lista">
+
+                </datalist>
+                </div>
+
                 <div class="col"><p>Nombres</p></div>
                 <div class="col"><input type="text" name="nombres_usuario" required disabled></div>
             </div>

@@ -194,13 +194,23 @@ class manejo_objetos
         $contador = 0;
         $ejecutar= $pdo->prepare($query);
         $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
-        while ($resultado = $ejecutar->fetch(PDO::FETCH_ASSOC)) {
+
+        //pasar los datos a objeto inecesario mejor pasarlo a array
+        /*while ($resultado = $ejecutar->fetch(PDO::FETCH_ASSOC)) {
         $usuario = new $objeto_usuario;
         $usuario->setIdUsuario($resultado['id_usuario']);
         $usuarios[$contador]=$usuario;
         $contador++;
-        }
-        return $usuarios;
+        }*/
+
+
+        //leer los datos en un areglo
+
+
+        $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+        //var_dump($data);
+        ///return $usuarios;
     }
 
 }

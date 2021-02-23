@@ -143,33 +143,29 @@ if (isset($_POST['crear_ticket'])){
     }
     // funcion enviar id coincidencias
 
-        if (isset($_GET['id_usuario'])){
+        if (isset($_GET['id_usuario_afectado'])){
 
             $usuario = new objeto_usuario();
-            $usuario->setIdUsuario('%'.htmlentities(addslashes($_GET['id_usuario'])).'%');
+            $usuario->setIdUsuario('%'.htmlentities(addslashes($_GET['id_usuario_afectado'])).'%');
             $resultado = manejo_objetos::get_usuarios_id($usuario);
 
             //var_dump($resultado);
-            $usuarios = array();
-            $contador =0;
+            print json_encode($resultado);
 
-            foreach ($resultado as $fila){
 
-                echo $fila->getIdUsuario()."</br>";
+
+            // leer resultado objeto y pasarlo a arreglo
+            /*foreach ($resultado as $fila){
                 $datos = array();
                 $datos['id']=$fila->getIdUsuario();
                 $usuarios[$contador]=$datos;
                 $contador++;
             }
-            return $usuarios;
 
-
-
-
-
-
-
-
+            var_dump($usuarios);
+            print_r($usuarios);
+            $json = json_encode($usuarios);
+            print_r($json);*/
 
 
         }
