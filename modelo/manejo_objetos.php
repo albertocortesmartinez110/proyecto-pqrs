@@ -189,19 +189,18 @@ class manejo_objetos
     public static function get_usuarios_id(Objeto_usuario $objeto_usuario){
 
         $pdo = conectar::conexion();
-        $query = "select id_usuario from usuarios where :id_usuario";
+        $query = "select id_usuario from usuarios where id_usuario like :id_usuario";
         $usuarios = array();
         $contador = 0;
         $ejecutar= $pdo->prepare($query);
         $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
-        $resultado = $ejecutar->fetch(PDO::FETCH_ASSOC);
-
-        while ($resultado) {
-            $usuario = new $objeto_usuario;
-            $objeto_usuario->setIdUsuario();
-        $usuarios[$contador]=$objeto_usuario;
+        while ($resultado = $ejecutar->fetch(PDO::FETCH_ASSOC)) {
+        $usuario = new $objeto_usuario;
+        $usuario->setIdUsuario($resultado['id_usuario']);
+        $usuarios[$contador]=$usuario;
         $contador++;
         }
+        return $usuarios;
     }
 
 }

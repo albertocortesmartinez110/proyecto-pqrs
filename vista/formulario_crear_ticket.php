@@ -22,6 +22,22 @@
             });
 
             $("#formulario_ticket input").prop('required',false);
+
+
+            $("#usuario_afectado").keydown(function (){
+
+                var id_usuario={id_usuario:$("#usuario_afectado").val()}
+
+                $.getJSON("../controlador/controlador.php",id_usuario, procesar_datos);
+
+            });
+
+            function procesar_datos(datos_devueltos){
+
+                alert(datos_devueltos);
+
+
+            }
         });
     </script>
     <title>formulario crear ticket</title>
@@ -42,7 +58,7 @@ if(!isset($_SESSION['Perfil_user'])){
         <section class="datos_usuario">
             <div class="row">
                 <div class="col"><p>Id usuario</p></div>
-                <div class="col"><input type="number" name="id_usuario_afectado" placeholder="ingrese id del usuario" required></div>
+                <div class="col"><input type="number" name="id_usuario_afectado" id="usuario_afectado" placeholder="ingrese id del usuario" required></div>
                 <div class="col"><p>Nombres</p></div>
                 <div class="col"><input type="text" name="nombres_usuario" required disabled></div>
             </div>

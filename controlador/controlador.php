@@ -141,6 +141,38 @@ if (isset($_POST['crear_ticket'])){
             break;
     }
     }
+    // funcion enviar id coincidencias
+
+        if (isset($_GET['id_usuario'])){
+
+            $usuario = new objeto_usuario();
+            $usuario->setIdUsuario('%'.htmlentities(addslashes($_GET['id_usuario'])).'%');
+            $resultado = manejo_objetos::get_usuarios_id($usuario);
+
+            //var_dump($resultado);
+            $usuarios = array();
+            $contador =0;
+
+            foreach ($resultado as $fila){
+
+                echo $fila->getIdUsuario()."</br>";
+                $datos = array();
+                $datos['id']=$fila->getIdUsuario();
+                $usuarios[$contador]=$datos;
+                $contador++;
+            }
+            return $usuarios;
+
+
+
+
+
+
+
+
+
+
+        }
 
 
 
