@@ -295,4 +295,7 @@ input[type="number"] {
     #observacionp{
         width: 100%;
     }
+    #estado{
+        margin-right: 20px;
+    }
 /*   fin css formulario modificar ticket*/
