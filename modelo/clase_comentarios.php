@@ -7,6 +7,23 @@ class objeto_comentario{
     protected $id_usuario;
     protected $comentario;
     protected $fecha_comentario;
+    protected $tipo;
+
+    /**
+     * @return mixed
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * @param mixed $tipo
+     */
+    public function setTipo($tipo): void
+    {
+        $this->tipo = $tipo;
+    }
 
 
     /**

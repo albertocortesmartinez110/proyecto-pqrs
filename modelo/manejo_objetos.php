@@ -129,11 +129,11 @@ class manejo_objetos
 
                 try {
                     $pdo = conectar::conexion();
-                    $query = "insert into incidentes (id_usuario_afectado,fecha_creado,id_agente_asignado,id_creado_por,estado) values(:id_usuario_afectado,:fecha_creado,:id_agente_asignado,:id_creado_por, :estado)";
+                    $query = "insert into incidentes (id_usuario_afectado,fecha_creado,id_agente_asignado,id_creado_por,estado,tipo) values(:id_usuario_afectado,:fecha_creado,:id_agente_asignado,:id_creado_por, :estado,:tipo)";
                     $ejecutar = $pdo->prepare($query);
                     $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
                         ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
-                        ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
+                        ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado(), ':tipo' => $objeto_ticket->getTipo()));
 
                 } catch (Exception $e) {
 
@@ -147,11 +147,11 @@ class manejo_objetos
                 try {
                     $pdo = conectar::conexion();
                     $pdo->beginTransaction();
-                    $query = "insert into requerimientos (id_usuario_afectado,fecha_creado,id_agente_asignado,id_creado_por,estado) values(:id_usuario_afectado,:fecha_creado, :id_agente_asignado, :id_creado_por, :estado)";
+                    $query = "insert into requerimientos (id_usuario_afectado,fecha_creado,id_agente_asignado,id_creado_por,estado,tipo) values(:id_usuario_afectado,:fecha_creado, :id_agente_asignado, :id_creado_por, :estado, :tipo)";
                     $ejecutar = $pdo->prepare($query);
                     $ejecutar->execute(array(':id_usuario_afectado' => $objeto_ticket->getIdUsuarioAfectado(),
                         ':fecha_creado' => $objeto_ticket->getFechaCreado(), ':id_agente_asignado' => $objeto_ticket->getIdAgenteAsignado(),
-                        ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado()));
+                        ':id_creado_por' => $objeto_ticket->getIdCreadoPor(), ':estado' => $objeto_ticket->getEstado(), ':tipo' => $objeto_ticket->getTipo()));
                     $last_inser = $pdo->lastInsertId();
                     $pdo->commit();
                     $ejecutar->closeCursor();
@@ -176,24 +176,26 @@ class manejo_objetos
 
         try {
             $pdo = conectar::conexion();
-            $query = "insert into comentarios (id_ticket, id_usuario, comentario, fecha_comentario) 
-                 values (:id_ticket, :id_usuario,:comentario,:fecha_comentario)";
+            $query = "insert into comentarios (id_ticket, id_usuario, comentario, fecha_comentario, tipo) 
+                 values (:id_ticket, :id_usuario,:comentario,:fecha_comentario,:tipo)";
             $ejecutar = $pdo->prepare($query);
             $ejecutar->execute(array(':id_ticket' => $objeto_comentario->getIdTicket(), ':id_usuario' => $objeto_comentario->getIdUsuario(),
-                ':comentario' => $objeto_comentario->getComentario(), ':fecha_comentario' => $objeto_comentario->getFechaComentario()));
+                ':comentario' => $objeto_comentario->getComentario(), ':fecha_comentario' => $objeto_comentario->getFechaComentario(), ':tipo' => $objeto_comentario->getTipo()));
         } catch (Exception $e) {
 
             die("Error: " . $e->getMessage() . ' en la fila :' . $e->getFile());
         }
     }
-    public static function get_usuarios_id(Objeto_usuario $objeto_usuario){
+
+    public static function get_usuarios_id(Objeto_usuario $objeto_usuario)
+    {
 
         $pdo = conectar::conexion();
         $query = "select id_usuario from usuarios where id_usuario like :id_usuario";
         $usuarios = array();
         $contador = 0;
-        $ejecutar= $pdo->prepare($query);
-        $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
+        $ejecutar = $pdo->prepare($query);
+        $ejecutar->execute(array(':id_usuario' => $objeto_usuario->getIdUsuario()));
 
         //pasar los datos a objeto inecesario mejor pasarlo a array
         /*while ($resultado = $ejecutar->fetch(PDO::FETCH_ASSOC)) {
@@ -213,27 +215,59 @@ class manejo_objetos
         ///return $usuarios;
     }
 
-    public static function get_datos_usuarios(Objeto_usuario $objeto_usuario){
+    public static function get_datos_usuarios(Objeto_usuario $objeto_usuario)
+    {
 
         $pdo = conectar::conexion();
-        $query="select * from usuarios where id_usuario =:id_usuario ";
+        $query = "select * from usuarios where id_usuario =:id_usuario ";
         $ejecutar = $pdo->prepare($query);
-        $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
+        $ejecutar->execute(array(':id_usuario' => $objeto_usuario->getIdUsuario()));
         $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
         return $data;
 
     }
 
-    public static function get_agentes_id(Objeto_usuario $objeto_usuario){
+    public static function get_agentes_id(Objeto_usuario $objeto_usuario)
+    {
 
         $pdo = conectar::conexion();
-        $query="select id_usuario from usuarios where perfil='agente' and id_usuario like :id_usuario";
+        $query = "select id_usuario from usuarios where perfil='agente' and id_usuario like :id_usuario";
         $ejecutar = $pdo->prepare($query);
-        $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
+        $ejecutar->execute(array(':id_usuario' => $objeto_usuario->getIdUsuario()));
         $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
         return $data;
 
+    }
 
+    public static function get_datos_comentarios(Objeto_ticket $objeto_ticket)
+    {
+
+        switch ($objeto_ticket->getTipo()) {
+
+            case 'Incidente':
+                $pdo = conectar::conexion();
+                $query = "select * from comentarios inner join incidentes on comentarios.id_ticket = incidentes.id_incidente 
+    inner join usuarios on incidentes.id_usuario_afectado = usuarios.id_usuario where 
+     comentarios.tipo=:tipo and incidentes.id_incidente=:id_incidente order by comentarios.fecha_comentario asc";
+                $ejecutar = $pdo->prepare($query);
+                $ejecutar->execute(array(':tipo' => $objeto_ticket->getTipo(), ':id_incidente' => $objeto_ticket->getIdTicket()));
+                $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
+                return $data;
+
+                break;
+
+            case 'Requerimiento':
+                $pdo = conectar::conexion();
+                $query = "select * from comentarios inner join requerimientos on comentarios.id_ticket = requerimientos.id_requerimiento 
+    inner join usuarios on requerimientos.id_usuario_afectado = usuarios.id_usuario where 
+     comentarios.tipo=:tipo and requerimientos.id_requerimiento=:id_requerimiento order by comentarios.fecha_comentario asc";
+                $ejecutar = $pdo->prepare($query);
+                $ejecutar->execute(array(':tipo' => $objeto_ticket->getTipo(), ':id_requerimiento' => $objeto_ticket->getIdTicket()));
+                $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
+                return $data;
+
+                break;
+        }
     }
 
 }

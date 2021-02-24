@@ -102,6 +102,7 @@ if (isset($_POST['crear_ticket'])){
     $comentario->setIdUsuario($ticket->getIdCreadoPor());
     $comentario->setFechaComentario(Date("Y-m-d H:i:s"));
     $comentario->setComentario($_POST['comentario']);
+    $comentario->setTipo($ticket->getTipo());
     manejo_objetos::set_comentarios($comentario);
 
     ?>
@@ -183,6 +184,19 @@ if (isset($_POST['crear_ticket'])){
             $resultado = manejo_objetos::get_agentes_id($usuario);
 
             print json_encode($resultado);
+        }
+
+        if (isset($_GET['tipo']) && isset($_GET['id_ticket'])){
+
+            $ticket = new objeto_ticket();
+
+            $ticket->setTipo(htmlentities(addslashes($_GET['tipo']),ENT_QUOTES));
+            $ticket->setIdTicket(htmlentities(addslashes($_GET['id_ticket']),ENT_QUOTES));
+
+            $resultado = manejo_objetos::get_datos_comentarios($ticket);
+
+            print json_encode($resultado);
+
         }
 
 
