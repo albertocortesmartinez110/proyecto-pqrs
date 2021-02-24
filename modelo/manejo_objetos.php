@@ -224,6 +224,18 @@ class manejo_objetos
 
     }
 
+    public static function get_agentes_id(Objeto_usuario $objeto_usuario){
+
+        $pdo = conectar::conexion();
+        $query="select id_usuario from usuarios where perfil='agente' and id_usuario like :id_usuario";
+        $ejecutar = $pdo->prepare($query);
+        $ejecutar->execute(array(':id_usuario'=>$objeto_usuario->getIdUsuario()));
+        $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+
+
+    }
+
 }
 
 

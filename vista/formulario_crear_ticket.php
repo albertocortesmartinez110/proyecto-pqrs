@@ -57,6 +57,8 @@
             });
 
 
+            /// funcion traer datos usuario ajax
+
             $("#usuario_afectado").blur(function () {
 
                 var datos1 = {usuario_afectado: $("#usuario_afectado").val()};
@@ -95,7 +97,28 @@
 
             $("#usuario_asignado").keyup(function (){
 
+                var datos ={usuario_asignado:$("#usuario_asignado").val()};
 
+                console.log(datos);
+
+                $.ajax({
+                   data: datos,
+                   url:"../controlador/controlador.php",
+                   type:"get",
+                   beforeSend:function (){
+
+                       console.log("Se esta procesando la tercer peticion");
+                   }
+                })
+                .done(function (data){
+                    $("#lista_agentes option").remove();
+                    console.log(data);
+                    var datos = JSON.parse(data);
+                    console.log(datos);
+                    for (var i=0; i<datos.length;i++){
+                        $("#lista_agentes").append("<option value="+    datos[i]['id_usuario'] +"></option>");
+                    }
+                });
             });
         });
     </script>
@@ -154,8 +177,12 @@ if (!isset($_SESSION['Perfil_user'])) {
                         </select>
                     </div>
                     <div class="col"><p>Asignar a</p></div>
-                    <div class="col"><input type="text" id="usuario_asignado" name="id_usuario_asignado"
-                                            placeholder="ingrese agente" required></div>
+                    <div class="col"><input type="number" id="usuario_asignado" name="id_usuario_asignado"
+                                            placeholder="ingrese agente" list="lista_agentes" required>
+                    <datalist id="lista_agentes">
+
+                    </datalist>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col"><p>Comentario</p></div>

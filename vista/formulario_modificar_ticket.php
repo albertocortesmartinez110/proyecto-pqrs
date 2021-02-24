@@ -43,7 +43,7 @@ if(($_SESSION['Perfil_user'] !='administrador') && ($_SESSION['Perfil_user'] !='
             </div>
             <div class="row">
                 <div class="col"><p>Id usuario</p></div>
-                <div class="col"><input type="number" name="id_usuario" placeholder="ingrese id del usuario" required></div>
+                <div class="col"><input type="number" name="id_usuario" disabled required></div>
                 <div class="col"><p>Nombres</p></div>
                 <div class="col"><input type="text" name="nombres_usuario" required disabled></div>
             </div>

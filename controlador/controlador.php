@@ -176,6 +176,15 @@ if (isset($_POST['crear_ticket'])){
             print json_encode($resultado);
         }
 
+        if(isset($_GET['usuario_asignado'])){
+
+            $usuario = new objeto_usuario();
+            $usuario->setIdUsuario('%'.htmlentities(addslashes($_GET['usuario_asignado'])).'%');
+            $resultado = manejo_objetos::get_agentes_id($usuario);
+
+            print json_encode($resultado);
+        }
+
 
 
     ?>
