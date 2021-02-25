@@ -306,7 +306,14 @@ if (isset($_POST['crear_ticket'])){
                 $usuario->setApellidosUsuario(htmlentities(addslashes($_POST['apellidos_usuario']),ENT_QUOTES));
                 $usuario->setNombresUsuario(htmlentities(addslashes($_POST['nombres_usuario']),ENT_QUOTES));
 
-                manejo_objetos::set_usuario_sinc($usuario);
+                $resultado = manejo_objetos::alter_usuario_sinc($usuario);
+                ?>
+
+                <script>
+                    alert("se ha modificado usuario con id: "+<?php echo $resultado; ?>);
+                    window.location.href="../vista/vista_administrador.php";
+                </script>
+                <?php
             }else{
                 $usuario = new objeto_usuario();
                 $usuario->setIdUsuario(htmlentities(addslashes($_POST['id_usuario']),ENT_QUOTES));
@@ -315,10 +322,19 @@ if (isset($_POST['crear_ticket'])){
                 $usuario->setTelefonoUsuario(htmlentities(addslashes($_POST['telefono']),ENT_QUOTES));
                 $usuario->setCiudadUsuario(htmlentities(addslashes($_POST['ciudad']),ENT_QUOTES));
                 $usuario->setCorreoUsuario(htmlentities(addslashes($_POST['correo']),ENT_QUOTES));
-                $usuario->setContraseñaUsuario(htmlentities(addslashes(password_hash($_POST['contraseña1'])),ENT_QUOTES));
-                $usuario->setApellidosUsuario(htmlentities(addslashes($_POST['apellidos']),ENT_QUOTES));
-                $usuario->setNombresUsuario(htmlentities(addslashes($_POST['nombres']),ENT_QUOTES));
-                manejo_objetos::set_usuario($usuario);
+                $contraseña=htmlentities(addslashes($_POST['contraseña1']),ENT_QUOTES);
+                $usuario->setContraseñaUsuario(password_hash($contraseña,PASSWORD_DEFAULT));
+                $usuario->setApellidosUsuario(htmlentities(addslashes($_POST['apellidos_usuario']),ENT_QUOTES));
+                $usuario->setNombresUsuario(htmlentities(addslashes($_POST['nombres_usuario']),ENT_QUOTES));
+                var_dump($usuario);
+
+                $resultado = manejo_objetos::alter_usuario($usuario);
+                ?>
+            <script>
+                alert("Se ha modificado el usuario con id : "+<?php  echo $resultado?>)
+                window.location.href="../vista/vista_administrador.php";
+            </script>
+            <?php
 
             }
 
