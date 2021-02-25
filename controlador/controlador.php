@@ -99,10 +99,11 @@ if (isset($_POST['crear_ticket'])){
 
     $comentario = new objeto_comentario();
     $comentario->setIdTicket($ticket->getIdTicket());
-    $comentario->setIdUsuario($ticket->getIdCreadoPor());
+    $comentario->setIdUsuarioComen($ticket->getIdCreadoPor());
     $comentario->setFechaComentario(Date("Y-m-d H:i:s"));
     $comentario->setComentario($_POST['comentario']);
     $comentario->setTipo($ticket->getTipo());
+    $comentario->setIdUsuarioAsignado($ticket->getIdAgenteAsignado());
     manejo_objetos::set_comentarios($comentario);
 
     ?>
@@ -186,6 +187,18 @@ if (isset($_POST['crear_ticket'])){
             print json_encode($resultado);
         }
 
+        if(isset($_GET['reasignar'])){
+
+            $usuario = new objeto_usuario();
+            $usuario->setIdUsuario('%'.htmlentities(addslashes($_GET['reasignar'])).'%');
+            $resultado = manejo_objetos::get_agentes_id($usuario);
+
+        print json_encode($resultado);
+        }
+
+
+
+
         if (isset($_GET['tipo']) && isset($_GET['id_ticket'])){
 
             $ticket = new objeto_ticket();
@@ -197,6 +210,68 @@ if (isset($_POST['crear_ticket'])){
 
             print json_encode($resultado);
 
+        }
+
+        if (isset($_POST['modificar_ticket'])){
+            session_start();
+
+            $ticket = new objeto_ticket();
+            $ticket->setIdTicket(htmlentities(addslashes($_POST['id_ticket']),ENT_QUOTES));
+            $ticket->setEstado(htmlentities(addslashes($_POST['cambiar_estado']),ENT_QUOTES));
+            $ticket->setTipo(htmlentities(addslashes($_POST['tipo']),ENT_QUOTES));
+            $ticket->setIdAgenteAsignado(htmlentities(addslashes($_POST['reasignar']), ENT_QUOTES));
+
+            manejo_objetos::modificar_ticket($ticket);
+
+
+
+            $comentario = new objeto_comentario();
+            $comentario->setComentario(htmlentities(addslashes($_POST['comentario']), ENT_QUOTES));
+            $comentario->setTipo($ticket->getTipo());
+            $comentario->setIdTicket($ticket->getIdTicket());
+            $comentario->setIdUsuarioAsignado($ticket->getIdAgenteAsignado());
+            $comentario->setFechaComentario(Date("Y-m-d H:i:s"));
+            $comentario->setIdUsuarioComen(htmlentities(addslashes($_SESSION['Id_user']),ENT_QUOTES));
+
+            manejo_objetos::set_comentarios($comentario);
+
+            ?>
+
+            <script>
+                alert("Se ha modificado correctamente el ticket: "+<?php echo $ticket->getIdTicket(); ?>);
+            </script>
+
+        <?php
+            switch ($_SESSION['Perfil_user']){
+                case 'administrador':
+                    ?>
+                    <script>
+                        window.location.href="../vista/vista_administrador.php";
+                    </script>
+
+                    <?php
+
+
+                    break;
+                case 'agente':
+                    ?>
+                    <script>
+                        window.location.href="../vista/vista_agente.php";
+                    </script>
+
+                    <?php
+
+                    break;
+                case 'funcionario':
+                    ?>
+                    <script>
+                        window.location.href="../vista/vista_funcionario.php";
+                    </script>
+
+                    <?php
+
+                    break;
+            }
         }
 
 

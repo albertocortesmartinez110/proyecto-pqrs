@@ -4,10 +4,27 @@ class objeto_comentario{
 
     protected $id_comentario;
     protected $id_ticket;
-    protected $id_usuario;
+    protected $id_usuario_comen;
     protected $comentario;
     protected $fecha_comentario;
     protected $tipo;
+    protected $id_usuario_asignado;
+
+    /**
+     * @return mixed
+     */
+    public function getIdUsuarioAsignado()
+    {
+        return $this->id_usuario_asignado;
+    }
+
+    /**
+     * @param mixed $id_usuario_asignado
+     */
+    public function setIdUsuarioAsignado($id_usuario_asignado): void
+    {
+        $this->id_usuario_asignado = $id_usuario_asignado;
+    }
 
     /**
      * @return mixed
@@ -61,18 +78,20 @@ class objeto_comentario{
     /**
      * @return mixed
      */
-    public function getIdUsuario()
+    public function getIdUsuarioComen()
     {
-        return $this->id_usuario;
+        return $this->id_usuario_comen;
     }
 
     /**
-     * @param mixed $id_usuario
+     * @param mixed $id_usuario_comen
      */
-    public function setIdUsuario($id_usuario): void
+    public function setIdUsuarioComen($id_usuario_comen): void
     {
-        $this->id_usuario = $id_usuario;
+        $this->id_usuario_comen = $id_usuario_comen;
     }
+
+
 
     /**
      * @return mixed

@@ -10,6 +10,7 @@
     <script>
         $(document).ready(function () {
 
+
             $('#sidebar').hover(function () {
 
                 $(this).stop().animate({
@@ -22,7 +23,7 @@
             });
 
 
-            $("#id_ticket").keyup(function () {
+            $("#id_ticket").blur(function () {
 
                 var datos = {tipo: $("#tipo").val(), id_ticket: $("#id_ticket").val()};
                 console.log(datos);
@@ -48,9 +49,57 @@
                         $("#telefono_usuario").val(datos[0]['telefono']);
                         $("#correo_usuario").val(datos[0]['correo']);
                         $("#estado").val(datos[tamaño_array]['estado']);
-                        
+                        $("#reasignar").val(datos[tamaño_array]['id_agente_asignado']);
+
+                        $("#comentarios #section").remove()
+                        if (datos[tamaño_array]['estado'] =='Cerrado'){
+
+                            $("#datos_reasignar").remove();
+                        }
+
+                        for (var i=0; i<datos.length;i++) {
+
+                            $("#comentarios").append("<section id='section' class='datos_ticket_2'><div class='row'><div class='col'>" +
+                                "<p>Creado por</p></div><div class='col'><input type='number' value='"+datos[i]['id_usuario_comen']+"' disabled></div><div class='col'>" +
+                                "<p>Asignado a</p></div><div class='col'><input type='text' value='"+datos[i]['id_usuario_asignado']+"' disabled></div><div class='col'>" +
+                                "<p>Fecha</p></div><div class='col'><input type='text' value='"+datos[i]['fecha_comentario']+"' disabled></div></div><div class='row'>" +
+                                "<div class='col'><p id='observacionp'>Observacion</p></div></div><div class='row'>" +
+                                "<div class='col'><textarea type='number' disabled class='observacion'>"+datos[i]['comentario']+"</textarea></div>" +
+                                "</div></section>");
+                        }
+
+
                     })
             });
+
+
+            $("#reasignar").keyup(function (){
+
+                var datos ={reasignar:$("#reasignar").val()};
+
+                console.log(datos);
+
+                $.ajax({
+                    data: datos,
+                    url:"../controlador/controlador.php",
+                    type:"get",
+                    beforeSend:function (){
+
+                        console.log("Se esta procesando la peticion");
+                    }
+                })
+                    .done(function (data){
+                        $("#lista_reasignar option").remove();
+                        console.log(data);
+                        var datos = JSON.parse(data);
+                        console.log(datos);
+                        for (var i=0; i<datos.length;i++){
+                            $("#lista_reasignar").append("<option value="+    datos[i]['id_usuario'] +"></option>");
+                        }
+                    });
+            });
+
+
 
 
         });
@@ -66,7 +115,7 @@ if (($_SESSION['Perfil_user'] != 'administrador') && ($_SESSION['Perfil_user'] !
 } else {
     ?>
     <section class="formulario_ticket">
-        <form method="post" action="">
+        <form method="post" action="../controlador/controlador.php">
             <section class="datos_ticket_1">
                 <div class="row">
                     <div class="col"><p>Tipo</p></div>
@@ -113,32 +162,20 @@ if (($_SESSION['Perfil_user'] != 'administrador') && ($_SESSION['Perfil_user'] !
 
             </section>
 
-            <section class="datos_ticket_2">
-                <div class="row">
-                    <div class="col"><p>Creado por</p></div>
-                    <div class="col"><input type="text" name="ciudad" disabled></div>
-                    <div class="col"><p>Asignado a</p></div>
-                    <div class="col"><input type="text" name="ciudad" disabled></div>
-                    <div class="col"><p>Fecha</p></div>
-                    <div class="col"><input type="text" name="ciudad" disabled></div>
-
-                </div>
-                <div class="row">
-                    <div class="col"><p id="observacionp">Observacion</p></div>
-                </div>
-                <div class="row">
-                    <div class="col"><textarea type="number" disabled name="telefono" class="observacion"></textarea>
-                    </div>
-                </div>
+            <section id="comentarios">
 
             </section>
-            <section class="datos_ticket">
+
+            <section class="datos_ticket" id="datos_reasignar">
                 <div class="row">
                     <div class="col"><p>¿Reasignar a?</p></div>
-                    <div class="col"><input type="number" name="reasignar" placeholder="Opcional"></div>
+                    <div class="col"><input type="number" id="reasignar" list="lista_reasignar" name="reasignar" placeholder="Opcional" required>
+                    <datalist id="lista_reasignar">
+                    </datalist>
+                    </div>
                     <div class="col"><p>¿Cambiar estado?</p></div>
                     <div class="col">
-                        <select name="cambiar_estado">
+                        <select name="cambiar_estado" required>
                             <option value="Abierto">Abierto</option>
                             <option value="En proceso">En proceso</option>
                             <option value="Cerrado">Cerrado</option>
@@ -148,14 +185,13 @@ if (($_SESSION['Perfil_user'] != 'administrador') && ($_SESSION['Perfil_user'] !
                     <div class="col"><p>Observacion</p></div>
                 </div>
                 <div class="row">
-                    <div class="col"><textarea type="number" name="telefono" class="observacion"
+                    <div class="col"><textarea type="number" name="comentario" class="observacion"
                                                placeholder="ingrese observacion" required></textarea></div>
                 </div>
-            </section>
             <div class="row">
-                <div class="col"><input type="submit" class="enviar" value="registrar"
-                                        name="registrar"></div>
+                <div class="col"><input type="submit" name="modificar_ticket" class="enviar" value="guardar"></div>
             </div>
+            </section>
         </form>
 
     </section>

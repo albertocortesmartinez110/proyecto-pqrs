@@ -176,11 +176,12 @@ class manejo_objetos
 
         try {
             $pdo = conectar::conexion();
-            $query = "insert into comentarios (id_ticket, id_usuario, comentario, fecha_comentario, tipo) 
-                 values (:id_ticket, :id_usuario,:comentario,:fecha_comentario,:tipo)";
+            $query = "insert into comentarios (id_ticket, id_usuario_comen, comentario, fecha_comentario, tipo, id_usuario_asignado) 
+                 values (:id_ticket, :id_usuario,:comentario,:fecha_comentario,:tipo,:id_usuario_asignado)";
             $ejecutar = $pdo->prepare($query);
-            $ejecutar->execute(array(':id_ticket' => $objeto_comentario->getIdTicket(), ':id_usuario' => $objeto_comentario->getIdUsuario(),
-                ':comentario' => $objeto_comentario->getComentario(), ':fecha_comentario' => $objeto_comentario->getFechaComentario(), ':tipo' => $objeto_comentario->getTipo()));
+            $ejecutar->execute(array(':id_ticket' => $objeto_comentario->getIdTicket(), ':id_usuario' => $objeto_comentario->getIdUsuarioComen(),
+                ':comentario' => $objeto_comentario->getComentario(), ':fecha_comentario' => $objeto_comentario->getFechaComentario(),
+                ':tipo' => $objeto_comentario->getTipo(),':id_usuario_asignado'=>$objeto_comentario->getIdUsuarioAsignado()));
         } catch (Exception $e) {
 
             die("Error: " . $e->getMessage() . ' en la fila :' . $e->getFile());
@@ -266,6 +267,27 @@ class manejo_objetos
                 $data = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
                 return $data;
 
+                break;
+        }
+    }
+
+
+    public  static function modificar_ticket(objeto_ticket $objeto_ticket){
+
+        switch ($objeto_ticket->getTipo()) {
+
+            case 'Incidente':
+
+                $pdo = conectar::conexion();
+                $query = "update  incidentes set id_agente_asignado =:agente_asignado, estado=:estado where id_incidente=:id_ticket";
+                $ejecutar = $pdo->prepare($query);
+                $ejecutar->execute(array(':agente_asignado' => $objeto_ticket->getIdAgenteAsignado(), ':estado' => $objeto_ticket->getEstado(), ':id_ticket' => $objeto_ticket->getIdTicket()));
+                break;
+            case 'Requerimiento':
+                $pdo = conectar::conexion();
+                $query = "update  requerimientos set id_agente_asignado =:agente_asignado, estado=:estado where id_requerimiento=:id_ticket";
+                $ejecutar = $pdo->prepare($query);
+                $ejecutar->execute(array(':agente_asignado' => $objeto_ticket->getIdAgenteAsignado(), ':estado' => $objeto_ticket->getEstado(), ':id_ticket' => $objeto_ticket->getIdTicket()));
                 break;
         }
     }
