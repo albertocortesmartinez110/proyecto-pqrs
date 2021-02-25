@@ -318,7 +318,7 @@ if (!isset($_SESSION['Perfil_user'])) {
             <div class="col"><p>Imagen</p></div>
             <div class="col"><input type="text" id="imagen" name="imagen"
                                     placeholder="ingrese una imagen"
-                                    required></div>
+                                    required disabled></div>
         </div>
 
         <div class="row">

@@ -8,8 +8,17 @@
     <script src="../js/jquery-3.5.1.js"></script>
     <script src="../js/jquery.easing.1.3.js"></script>
     <script>
+
         $(document).ready(function () {
 
+
+            <?php
+            if (($_SESSION['Perfil_user'] =='funcionario')){
+            ?>
+            $("#datos_reasignar").remove();
+            <?php
+            }
+            ?>
 
             $('#sidebar').hover(function () {
 
@@ -104,13 +113,16 @@
 
         });
     </script>
-    <title>Modificar tiket</title>
 </head>
 <body>
 <?php
-if (($_SESSION['Perfil_user'] != 'administrador') && ($_SESSION['Perfil_user'] != 'agente')) {
+if (!isset($_SESSION['Perfil_user'])){
 
-    header('location:login.html');
+   ?>
+        <script>
+            window.location.href="login.html";
+        </script>
+   <?php
 
 } else {
     ?>
