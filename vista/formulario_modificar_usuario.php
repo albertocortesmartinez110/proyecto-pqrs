@@ -32,6 +32,28 @@
             });
             $("#formulario_usuario input").prop('disabled', false);
             $("#modificar").append("<input type='submit' class='enviar' value='modificar' name='modificar'>");
+
+            $("#id_usuario").keyup(function (){
+
+                var datos = {usuario_mod: $("#id_usuario").val()};
+                console.log(datos);
+
+                $.ajax({
+                    data:datos,
+                    url:"../controlador/controlador.php",
+                    type:"get",
+                    beforeSend:function (){
+                        console.log("enviando peticion");
+                    }
+                })
+                .done(function (data){
+
+                    console.log("recibi info");
+
+                })
+
+            });
+
         });
 
     </script>
@@ -66,19 +88,19 @@
 
 <?php
 
-/*if (!isset($_SESSION['Perfil_user']) || $_SESSION['Perfil_user'] != 'administrador') {
+if (!isset($_SESSION['Perfil_user'])) {
 
 
     header('location:login.html');
 
-} else {*/
+} else {
 ?>
 <section class="formulario_usuario">
 
     <form method="post" action="" id="formulario_usuario">
         <div class="row">
             <div class="col"><p>Id usuario</p></div>
-            <div class="col"><input type="number" name="id_usuario" placeholder="ingrese id del usuario" required>
+            <div class="col"><input type="number" id="id_usuario" name="id_usuario" placeholder="ingrese id del usuario" required>
             </div>
         </div>
         <div class="row">
@@ -132,7 +154,7 @@
     </form>
 </section>
 <?php
-//}
+}
 ?>
 
 </body>
