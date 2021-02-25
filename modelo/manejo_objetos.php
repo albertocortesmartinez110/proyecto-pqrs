@@ -80,6 +80,28 @@ class manejo_objetos
 
     }
 
+    public static function alter_usuario_sinc(Objeto_usuario $objeto_usuario)
+    {
+
+        try {
+            $pdo = conectar::conexion();
+            $query = "insert into usuarios (id_usuario,nombres,apellidos,correo,perfil,ciudad,telefono,imagen) values(:id_user,:name_user,:apell_user, :correo_user, :perfil_user, :ciu_user,:tel_user,:img_user)";
+            $ejecutar = $pdo->prepare($query);
+            $ejecutar->execute(array(':id_user' => $objeto_usuario->getIdUsuario(), ':name_user' => $objeto_usuario->getNombresUsuario(),
+                ':apell_user' => $objeto_usuario->getApellidosUsuario(), ':correo_user' => $objeto_usuario->getCorreoUsuario(), ':perfil_user' => $objeto_usuario->getPerfilUsuario(),
+                ':ciu_user' => $objeto_usuario->getCiudadUsuario(), ':tel_user' => $objeto_usuario->getTelefonoUsuario(),
+                ':img_user' => $objeto_usuario->getImgUsuario()));
+
+            return $objeto_usuario->getIdUsuario();
+
+
+        } catch (Exception $e) {
+
+            die("Error: " . $e->getMessage() . ' fila del error : ' . $e->getFile());
+        }
+
+    }
+
 
     //funcion comprobar subida de imagenes
 

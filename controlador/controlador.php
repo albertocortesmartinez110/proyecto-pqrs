@@ -274,6 +274,55 @@ if (isset($_POST['crear_ticket'])){
             }
         }
 
+        if(isset($_GET['usuario_dat'])){
+
+            $usuario = new objeto_usuario();
+            $usuario->setIdUsuario('%'.htmlentities(addslashes($_GET['usuario_dat']),ENT_QUOTES).'%');
+            $resultado=manejo_objetos::get_usuarios_id($usuario);
+            print json_encode($resultado);
+        }
+
+        if(isset($_GET['usuario_mod'])){
+
+            $usuario = new objeto_usuario();
+            $usuario->setIdUsuario(htmlentities(addslashes($_GET['usuario_mod']),ENT_QUOTES));
+            $resultado = manejo_objetos::get_datos_usuarios($usuario);
+            print json_encode($resultado);
+        }
+
+
+        if(isset($_POST['modificar_usuario'])){
+
+
+            $contraseña=htmlentities(addslashes($_POST['contraseña']));
+            if(empty($contraseña)){
+                $usuario = new objeto_usuario();
+                $usuario->setIdUsuario(htmlentities(addslashes($_POST['id_usuario']),ENT_QUOTES));
+                $usuario->setPerfilUsuario(htmlentities(addslashes($_POST['perfil']),ENT_QUOTES));
+                $usuario->setImgUsuario(htmlentities(addslashes($_POST['imagen']),ENT_QUOTES));
+                $usuario->setTelefonoUsuario(htmlentities(addslashes($_POST['telefono']),ENT_QUOTES));
+                $usuario->setCiudadUsuario(htmlentities(addslashes($_POST['ciudad']),ENT_QUOTES));
+                $usuario->setCorreoUsuario(htmlentities(addslashes($_POST['correo']),ENT_QUOTES));
+                $usuario->setApellidosUsuario(htmlentities(addslashes($_POST['apellidos_usuario']),ENT_QUOTES));
+                $usuario->setNombresUsuario(htmlentities(addslashes($_POST['nombres_usuario']),ENT_QUOTES));
+
+                manejo_objetos::set_usuario_sinc($usuario);
+            }else{
+                $usuario = new objeto_usuario();
+                $usuario->setIdUsuario(htmlentities(addslashes($_POST['id_usuario']),ENT_QUOTES));
+                $usuario->setPerfilUsuario(htmlentities(addslashes($_POST['perfil']),ENT_QUOTES));
+                $usuario->setImgUsuario(htmlentities(addslashes($_POST['imagen']),ENT_QUOTES));
+                $usuario->setTelefonoUsuario(htmlentities(addslashes($_POST['telefono']),ENT_QUOTES));
+                $usuario->setCiudadUsuario(htmlentities(addslashes($_POST['ciudad']),ENT_QUOTES));
+                $usuario->setCorreoUsuario(htmlentities(addslashes($_POST['correo']),ENT_QUOTES));
+                $usuario->setContraseñaUsuario(htmlentities(addslashes(password_hash($_POST['contraseña1'])),ENT_QUOTES));
+                $usuario->setApellidosUsuario(htmlentities(addslashes($_POST['apellidos']),ENT_QUOTES));
+                $usuario->setNombresUsuario(htmlentities(addslashes($_POST['nombres']),ENT_QUOTES));
+                manejo_objetos::set_usuario($usuario);
+
+            }
+
+        }
 
 
     ?>

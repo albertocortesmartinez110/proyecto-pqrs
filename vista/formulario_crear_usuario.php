@@ -38,6 +38,7 @@
 
             $("#contraseña1").blur(function (){
                 var contra1 = $("#contraseña1").val();
+                var contra2 = $("#contraseña2").val();
 
                 if(contra2 !=''){
 
