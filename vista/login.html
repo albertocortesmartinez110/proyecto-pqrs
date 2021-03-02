@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimun-scale=1.0">
     <title>tickets</title>
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/bootstrap-grid.css">
     <script src="../js/jquery-3.5.1.js"></script>
     <script>
         $(document).ready(function () {
+
+            $("input").prop('autocomplete', false);
 
             $('#imagen_login img').hide(0);
             $("#password").focus(function () {
@@ -32,7 +35,7 @@
     <section class="login_formulario">
         <form action="../controlador/controlador.php" method="post">
             <div class="row">
-                <div class="col"><input type="number" name="id_usuario" placeholder="Ingrese su identificacion" required></div>
+                <div class="col"><input type="text" name="id_usuario" autocomplete="off" placeholder="Ingrese su identificacion" required></div>
             </div>
             <div class="row">
                 <div class="col"><input type="password" placeholder="Ingrese la contraseña" name="password" id="password" required>
@@ -40,6 +43,10 @@
             </div>
             <div class="row">
                 <div class="col"><input type="submit" name="ingresar" value="Ingresar" class="enviar"></div>
+            </div>
+            <div class="row">
+                <div class="col"><a href="documentacion.html">Documentacion</a></div>
+                <div class="col"><a href="usuarios.html">Usuarios</a></div>
             </div>
         </form>
     </section>

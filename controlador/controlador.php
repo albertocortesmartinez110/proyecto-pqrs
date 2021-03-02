@@ -340,5 +340,11 @@ if (isset($_POST['crear_ticket'])){
 
         }
 
+        if (isset($_GET['usuarios'])){
+
+            $resultado = manejo_objetos::get_usuarios_total();
+            print json_encode($resultado);
+        }
+
 
     ?>

@@ -32,10 +32,11 @@ if(!isset($_SESSION['Name_user']) || $_SESSION['Perfil_user'] !='administrador')
 }else{
 ?>
 <section class="sidebar" id="sidebar">
-        <ul>
+    <ul>
         <li id="menu"><h3>Menu </h3></li>
-        <li id="nam_user_li"> <a><?php echo $_SESSION['Name_user']?></a></li>
-        <li id="img_user_li"><img src="/curso_php/Proyecto_tickets_final/imagenes/<?php echo $_SESSION['Img_user'] ?>"></img></li>
+        <li id="nam_user_li"><a><?php echo $_SESSION['Name_user'] ?></a></li>
+        <li id="img_user_li"><img
+                    src="/curso_php/Proyecto_tickets_final/imagenes/<?php echo $_SESSION['Img_user'] ?>"></img></li>
         <li><a href="?accion=crear_ticket">Crear ticket</a></li>
         <li><a href="?accion=crear_usuario">Crear usuario</a></li>
         <li><a href="?accion=consultar_ticket">Consultar ticket</a></li>

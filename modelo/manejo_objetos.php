@@ -332,6 +332,15 @@ class manejo_objetos
                 break;
         }
     }
+    public static function get_usuarios_total(){
+
+        $pdo =conectar::conexion();
+        $query ="select id_usuario, nombres, apellidos, perfil from usuarios";
+        $ejecutar = $pdo->prepare($query);
+        $ejecutar->execute();
+        $resultado = $ejecutar->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 
 }
 

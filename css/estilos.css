@@ -299,3 +299,31 @@ input[type="number"] {
         margin-right: 20px;
     }
 /*   fin css formulario modificar ticket*/
+
+.menu_login{
+    text-align: center;
+    align-content: center;
+    max-resolution: auto;
+}
+.login_formulario a{
+    font-size: 20px;
+}
+.documentacion{
+    text-align: justify-all;
+    width: 80%;
+    margin: auto;
+    font-family: 'Mulish', sans-serif ;
+}.documentacion a{
+    margin-left: 5%;
+ }
+ .usuarios{
+     font-family:'Mulish', sans-serif ;
+     text-align: center;
+     width: 80%;
+     margin: auto;
+ }.usuarios .col{
+    border: #484646 1px solid;
+    width: 60px;
+   }.usuarios a{
+           margin-left: 5%;
+       }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="../css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
+    <script src="../js/jquery-3.5.1.js"></script>
+    <script>
+        $(document).ready(function (){
+            var datos ={usuarios:'todos'};
+
+            $.ajax({
+                data:datos,
+                url:"../controlador/controlador.php",
+                type:"get",
+                beforeSend:function (){
+                    console.log("Procesando peticion")
+                }
+            })
+            .done(function (data){
+                var datos = JSON.parse(data);
+                console.log(datos);
+                for (var i=0;i<datos.length;i++) {
+                    $(".usuarios").append("<div class='row'><div class='col'>"+datos[i]['id_usuario']+"</div><div class='col'>"+datos[i]['nombres']+"</div>" +
+                        "<div class='col''>"+datos[i]['apellidos']+"</div><div class='col'>"+datos[i]['perfil']+"</div></div>");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<section class="usuarios">
+    <a href="login.html">Login</a>
+    <a href="documentacion.html">Documentacion</a>
+    <h2>Usuarios</h2>
+    <div class="row">
+        <div class="col">Id_usuario</div>
+        <div class="col">Nombres</div>
+        <div class="col">Contraseña</div>
+        <div class="col">Perfil</div>
+    </div>
+</section>
+
+</body>
+</html>
